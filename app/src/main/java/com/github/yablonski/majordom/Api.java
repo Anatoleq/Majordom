@@ -11,5 +11,5 @@ public class Api {
 
     //public static final String FRIENDS_GET = BASE_PATH + "friends.get?fields=photo_200_orig,online,nickname";
     public static final String FRIENDS_GET = "http://melville.webatu.com/lib/loginAndroid.php?username=consierge";
-    public static final String NEWS_GET = "http://melville.webatu.com/inc/newstojson.php";
+    public static final String NEWS_GET = "http://melvillestrada.com/inc/newstojson.php";
 }

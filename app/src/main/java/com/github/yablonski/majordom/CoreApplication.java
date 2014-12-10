@@ -3,6 +3,7 @@ package com.github.yablonski.majordom;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
@@ -17,6 +18,7 @@ public class CoreApplication extends Application {
     private VkDataSource mVkDataSource;
     private UserDataSource mUserDataSource;
     private NewsDataSource mNewsDataSource;
+    private CachedHttpDataSource mCachedHttpDataSource;
 
     @Override
     public void onCreate() {
@@ -25,6 +27,7 @@ public class CoreApplication extends Application {
         mVkDataSource = new VkDataSource();
         mUserDataSource = new UserDataSource();
         mNewsDataSource = new NewsDataSource();
+        mCachedHttpDataSource = new CachedHttpDataSource(this);
     }
 
     @Override
@@ -58,6 +61,14 @@ public class CoreApplication extends Application {
                 mUserDataSource = new UserDataSource();
             }
             return mUserDataSource;
+        }
+
+        if (CachedHttpDataSource.KEY.equals(name)) {
+            //for android kitkat +
+            if (mCachedHttpDataSource == null) {
+                mCachedHttpDataSource = new CachedHttpDataSource(this);
+            }
+            return mCachedHttpDataSource;
         }
         return super.getSystemService(name);
     }

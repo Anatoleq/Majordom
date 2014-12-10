@@ -23,8 +23,10 @@ import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.News;
 import com.github.yablonski.majordom.bo.User;
 import com.github.yablonski.majordom.helper.DataManager;
+import com.github.yablonski.majordom.processing.BitmapProcessor;
 import com.github.yablonski.majordom.processing.NewsArrayProcessor;
 import com.github.yablonski.majordom.processing.UserArrayProcessor;
+import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
@@ -112,7 +114,35 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
                     textView1.setText(item.getDate());
                     TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
                     textView2.setText(item.getTitle());
-                    //convertView.setTag(item.getId());
+                    convertView.setTag(item.getId());
+                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
+                    final String url = item.getImage();
+                    imageView.setImageBitmap(null);
+                    imageView.setTag(url);
+                    if (!TextUtils.isEmpty(url)) {
+                        //TODO add delay and cancel old request or create limited queue
+                        //TODO create sync Map to check existing request and existing callbacks
+                        //TODO create separate thread pool for manager
+                        DataManager.loadData(new DataManager.Callback<Bitmap>() {
+                            @Override
+                            public void onDataLoadStart() {
+
+                            }
+
+                            @Override
+                            public void onDone(Bitmap bitmap) {
+                                if (url.equals(imageView.getTag())) {
+                                    imageView.setImageBitmap(bitmap);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+
+                            }
+
+                        }, url, CachedHttpDataSource.get(NewsActivity.this), new BitmapProcessor());
+                    }
                     return convertView;
                 }
 

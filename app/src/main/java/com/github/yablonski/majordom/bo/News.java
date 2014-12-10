@@ -14,6 +14,8 @@ public class News extends JSONObjectWrapper {
         private static final String DATE = "date";
         private static final String TITLE = "title";
         private static final String IMAGE = "image";
+        private static final String ID = "id";
+
 
         public static final Parcelable.Creator<News> CREATOR
                 = new Parcelable.Creator<News>() {
@@ -48,5 +50,9 @@ public class News extends JSONObjectWrapper {
 
     public String getImage() {
         return getString(IMAGE);
+    }
+
+    public Long getId() {
+        return getLong(ID);
     }
 }
