@@ -10,18 +10,18 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
-        android:name="com.github.yablonski.majordom.CoreApplication"
+        android:name=".CoreApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.github.yablonski.majordom.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.StartActivity"
+            android:name=".StartActivity"
             android:label="@string/title_activity_start" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,27 +30,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.BookActivity"
+            android:name=".BookActivity"
             android:label="@string/title_activity_book" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.MenuActivity"
+            android:name=".MenuActivity"
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.AsyncTaskLoaderActivity"
+            android:name=".AsyncTaskLoaderActivity"
             android:label="@string/title_activity_async_task_loader" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.VkLoginActivity"
+            android:name=".VkLoginActivity"
             android:label="@string/title_activity_vk_login" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.SocialActivity"
+            android:name=".SocialActivity"
             android:label="@string/title_activity_social" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.FragmentActivity"
+            android:name=".FragmentActivity"
             android:label="@string/title_activity_fragment" >
             <intent-filter>
                 <action android:name="android.intent.action.showfragments" />
@@ -59,16 +59,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.DetailsActivity"
+            android:name=".DetailsActivity"
             android:label="@string/title_activity_details" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.github.yablonski.majordom.NewsActivity"
+            android:name=".NewsActivity"
             android:label="@string/title_activity_news" >
+        </activity>
+        <activity
+            android:name=".ImageActivity"
+            android:label="@string/title_activity_image" >
         </activity>
     </application>
 

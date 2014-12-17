@@ -3,6 +3,7 @@ package com.github.yablonski.majordom;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.yablonski.majordom.image.ImageLoader;
 import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
@@ -19,6 +20,7 @@ public class CoreApplication extends Application {
     private UserDataSource mUserDataSource;
     private NewsDataSource mNewsDataSource;
     private CachedHttpDataSource mCachedHttpDataSource;
+    private ImageLoader mImageLoader;
 
     @Override
     public void onCreate() {
@@ -70,6 +72,15 @@ public class CoreApplication extends Application {
             }
             return mCachedHttpDataSource;
         }
+
+        if (ImageLoader.KEY.equals(name)) {
+            //for android kitkat +
+            if (mImageLoader == null) {
+                mImageLoader = new ImageLoader(this);
+            }
+            return mImageLoader;
+        }
+
         return super.getSystemService(name);
     }
 

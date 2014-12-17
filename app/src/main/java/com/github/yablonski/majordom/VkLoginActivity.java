@@ -11,8 +11,6 @@ import android.webkit.WebViewClient;
 
 public class VkLoginActivity extends ActionBarActivity {
 
-    //VkOAuthHelper.this.getSharedPreferences(VkOAuthHelper.this.getApplicationContext());
-
     private static final String TAG = VkLoginActivity.class.getSimpleName();
     private WebView mWebView;
 
@@ -42,9 +40,7 @@ public class VkLoginActivity extends ActionBarActivity {
             showProgress();
             view.setVisibility(View.INVISIBLE);
         }
-        /* (non-Javadoc)
-              * @see android.webkit.WebViewClient#shouldOverrideUrlLoading(android.webkit.WebView, java.lang.String)
-              */
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Log.d(TAG, "overr " + url);
@@ -84,6 +80,7 @@ public class VkLoginActivity extends ActionBarActivity {
             view.setVisibility(View.VISIBLE);
             //if (!VkOAuthHelper.proceedRedirectURL(VkLoginActivity.this, url, success)) {
             dismissProgress();
+            //showProgress();
             //}
         }
 

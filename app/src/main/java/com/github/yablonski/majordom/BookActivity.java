@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class BookActivity extends ActionBarActivity {
 
-    String[] menu = new String[]{"Booking", "Reports", "Complaints", "Lost & found"};
+    String[] menu = new String[]{"Booking", "Reports", "Complaints", "Lost & found", "News"};
     String[] bookmenu = new String[]{"Electrician", "Plumber", "Elevator", "Visitor's parking", "Move-in, Move-out service"};
     ArrayList<Map<String, String>> groupData;
     ArrayList<Map<String, String>> childDataItem;
@@ -38,14 +38,14 @@ public class BookActivity extends ActionBarActivity {
         int groupTo[] = new int[] {android.R.id.text1};
         childData = new ArrayList<ArrayList<Map<String, String>>>();
         childDataItem = new ArrayList<Map<String, String>>();
-        for (String expmenu : bookmenu){
+        for (String expmenu : bookmenu) {
             m = new HashMap<String, String>();
             m.put("menuName", expmenu);
             childDataItem.add(m);
         }
         childData.add(childDataItem);
-        String childFrom[] = new String[]{"menuName"};
-        int childTo[] = new int[]{android.R.id.text1};
+        String childFrom[] = new String[] {"menuName"};
+        int childTo[] = new int[] {android.R.id.text1};
 
         SimpleExpandableListAdapter adapter = new SimpleExpandableListAdapter(this,
             groupData, R.layout.group_view, groupFrom, groupTo, childData,

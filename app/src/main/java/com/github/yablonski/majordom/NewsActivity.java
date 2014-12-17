@@ -23,6 +23,7 @@ import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.News;
 import com.github.yablonski.majordom.bo.User;
 import com.github.yablonski.majordom.helper.DataManager;
+import com.github.yablonski.majordom.image.ImageLoader;
 import com.github.yablonski.majordom.processing.BitmapProcessor;
 import com.github.yablonski.majordom.processing.NewsArrayProcessor;
 import com.github.yablonski.majordom.processing.UserArrayProcessor;
@@ -39,15 +40,16 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
 
     private ArrayAdapter mAdapter;
     private static final String TAG = OAuthHelper.class.getSimpleName();
-
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
-
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ImageLoader mImageLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+        mImageLoader = ImageLoader.get(NewsActivity.this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();
         final NewsArrayProcessor processor = getProcessor();
@@ -99,7 +101,9 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
         if (data == null || data.isEmpty()) {
             findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
         }
-        AdapterView listView = (AbsListView) findViewById(android.R.id.list);
+        //AdapterView listView = (AbsListView) findViewById(android.R.id.list);
+        AbsListView listView = (AbsListView) findViewById(android.R.id.list);
+
         if (mAdapter == null) {
             mData = data;
             mAdapter = new ArrayAdapter<News>(this, R.layout.adapter_item, android.R.id.text1, data) {
@@ -115,9 +119,9 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
                     TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
                     textView2.setText(item.getTitle());
                     convertView.setTag(item.getId());
-                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
+                    //final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
                     final String url = item.getImage();
-                    imageView.setImageBitmap(null);
+                    /*imageView.setImageBitmap(null);
                     imageView.setTag(url);
                     if (!TextUtils.isEmpty(url)) {
                         //TODO add delay and cancel old request or create limited queue
@@ -142,12 +146,35 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
                             }
 
                         }, url, CachedHttpDataSource.get(NewsActivity.this), new BitmapProcessor());
-                    }
+                    }*/
+                    final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
+                    mImageLoader.loadAndDisplay(url, imageView);
                     return convertView;
                 }
 
             };
             listView.setAdapter(mAdapter);
+            listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                    switch (scrollState) {
+                        case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                            mImageLoader.resume();
+                            break;
+                        case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                            mImageLoader.pause();
+                            break;
+                        case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                            mImageLoader.pause();
+                            break;
+                    }
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                }
+            });
         } else {
             mData.clear();
             mData.addAll(data);
