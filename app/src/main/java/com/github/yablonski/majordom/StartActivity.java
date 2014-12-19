@@ -27,7 +27,7 @@ public class StartActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
-            startNewsActivity();
+            startMenuActivity();
         } else {
             finish();
         }
@@ -35,6 +35,11 @@ public class StartActivity extends ActionBarActivity {
 
     private void startNewsActivity() {
         startActivity(new Intent(this, NewsActivity.class));
+        finish();
+    }
+
+    private void startMenuActivity() {
+        startActivity(new Intent(this, MenuActivity.class));
         finish();
     }
 }

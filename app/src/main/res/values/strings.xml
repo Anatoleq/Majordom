@@ -5,14 +5,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_start">StartActivity</string>
-    <string name="title_activity_book">BookActivity</string>
-    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_book">Booking</string>
+    <string name="title_activity_menu">Main menu</string>
     <string name="title_activity_async_task_loader">AsyncTaskLoaderActivity</string>
     <string name="format_short">Short</string>
     <string name="format_long">Long</string>
     <string name="get_time">Get time</string>
     <string name="observer">Observer</string>
-    <string name="title_activity_vk_login">VkLoginActivity</string>
+    <string name="title_activity_vk_login">Sign in</string>
     <string name="title_activity_social">SocialActivity</string>
     <string name="title_activity_fragment">FragmentActivity</string>
 
@@ -28,6 +28,21 @@
         <item>Content 3</item>
         <item>Content 4</item>
     </string-array>
+    <string-array name="menu">
+        <item>Booking</item>
+        <item>Packages</item>
+        <item>Reports</item>
+        <item>Complaints</item>
+        <item>LostAndFound</item>
+        <item>News</item>
+    </string-array>
+    <string-array name="booking">
+        <item>Electrician</item>
+        <item>Plumber</item>
+        <item>Elevator</item>
+        <item>Visitors parking</item>
+        <item>Move-in Move-out service</item>
+    </string-array>
 
     <string name="title_activity_details">DetailsActivity</string>
     <string name="title_activity_child_fragment">ChildFragmentActivity</string>
@@ -36,7 +51,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="login_url">http://melville.webatu.com/lib/loginAndroid.php</string>
     <string name="title_activity_empty">EmptyActivity</string>
-    <string name="title_activity_news">NewsActivity</string>
+    <string name="title_activity_news">News</string>
     <string name="title_activity_image">ImageActivity</string>
 
 </resources>

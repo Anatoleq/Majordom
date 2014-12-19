@@ -22,8 +22,8 @@ public class VkOAuthHelper {
     }*/
 
     private static String sToken;
-    public static final String REDIRECT_URL = "http://melville.webatu.com/blank.html";
-    public static final String AUTHORIZATION_URL = "http://melville.webatu.com/lib/userAndroid.php";
+    public static final String REDIRECT_URL = "http://melvillestrada.com/blank.html";
+    public static final String AUTHORIZATION_URL = "http://melvillestrada.com/lib/userAndroid.php";
     private static final String TAG = VkOAuthHelper.class.getSimpleName();
     static SharedPreferences sharedPreferences;
     static final String SAVED_TEXT = "saved_text";
