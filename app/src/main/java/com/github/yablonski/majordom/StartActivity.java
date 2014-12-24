@@ -3,9 +3,8 @@ package com.github.yablonski.majordom;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import com.github.yablonski.majordom.utils.AuthUtils;
+
+import com.github.yablonski.majordom.auth.OAuthHelper;
 
 
 public class StartActivity extends ActionBarActivity {
@@ -15,13 +14,12 @@ public class StartActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (AuthUtils.isLogged()) {
-            startNewsActivity();
+        if (OAuthHelper.isLogged()) {
+            startMenuActivity();
         } else {
-            startActivityForResult(new Intent(this, VkLoginActivity.class), REQUEST_LOGIN);
+            startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -31,11 +29,6 @@ public class StartActivity extends ActionBarActivity {
         } else {
             finish();
         }
-    }
-
-    private void startNewsActivity() {
-        startActivity(new Intent(this, NewsActivity.class));
-        finish();
     }
 
     private void startMenuActivity() {

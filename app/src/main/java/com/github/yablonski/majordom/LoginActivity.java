@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,74 +33,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks {
+public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks{
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-
-    private InputStream is;
-    MainActivity url;
-    private EditText emailEditText, passwordEditText;
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        emailEditText = (EditText) findViewById(R.id.emailEditText);
-        passwordEditText = (EditText)findViewById(R.id.passwordEditText);
-        dismissProgress();
-    }
 
-    public void onSubmitButtonClick(View v){
-        new LoginTask().execute("http://melville.webatu.com/lib/userAndroid.php");
-    }
-
-    public void onExitButtonClick(View v){
-        finish();
-    }
-
-    class LoginTask extends AsyncTask<String, String, String> {
-
-        @Override
-        protected String doInBackground(String... params) {
-
-            try {
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                HttpPost postMethod = new HttpPost(params[0]);
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                nameValuePairs.add(new BasicNameValuePair("username", emailEditText.getText().toString()));
-                nameValuePairs.add(new BasicNameValuePair("password", passwordEditText.getText().toString()));
-                postMethod.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                String response = httpClient.execute(postMethod, responseHandler);
-                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //intent.putExtra(MainActivity.JsonURL, response.toString());
-                //startActivity(intent);
-            } catch (Exception e) {
-                System.out.println("Exp=" + e);
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            dismissProgress();
-            //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            //intent.putExtra(MainActivity.JsonURL, response.toString());
-            //startActivity(intent);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showProgress();
-        }
-    }
-
-    @Override
-    public void onSuccess() {
-        setResult(RESULT_OK);
-        finish();
+        getSupportActionBar().hide();
+        mWebView = (WebView) findViewById(R.id.webView);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        mWebView.setWebViewClient(new MWebViewClient());
+        mWebView.loadUrl(OAuthHelper.AUTHORIZATION_URL);
     }
 
     @Override
@@ -116,6 +67,67 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
                 .show();
     }
 
+    @Override
+    public void onSuccess() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    private class MWebViewClient extends WebViewClient {
+
+        public MWebViewClient() {
+            super();
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            Log.d(TAG, "page started " + url);
+            showProgress();
+            view.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Log.d(TAG, "override " + url);
+            if (OAuthHelper.proceedRedirectURL(LoginActivity.this, url, LoginActivity.this)) {
+                Log.d(TAG, "override redirect");
+                view.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "Parsing url " + url);
+                setResult(RESULT_OK);
+                finish();
+                return true;
+            } else {
+                //view.loadUrl(url);
+                return false;
+            }
+        }
+
+        @Override
+        public void onReceivedError(WebView view, int errorCode,
+                                    String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            view.setVisibility(View.VISIBLE);
+            dismissProgress();
+            Log.d(TAG, "error " + failingUrl);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            Log.d(TAG, "finish " + url);
+         /*   if (url.contains("&amp;")) {
+                url = url.replace("&amp;", "&");
+                Log.d(TAG, "overr after replace " + url);
+                view.loadUrl(url);
+                return;
+            }*/
+            view.setVisibility(View.VISIBLE);
+            //if (!OAuthHelper.proceedRedirectURL(LoginActivity.this, url, success)) {
+            dismissProgress();
+            //showProgress();
+            //}
+        }
+    }
     private void dismissProgress() {
         findViewById(android.R.id.progress).setVisibility(View.GONE);
     }
@@ -123,5 +135,4 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
     private void showProgress() {
         findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
     }
-
 }

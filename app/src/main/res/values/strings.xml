@@ -4,7 +4,7 @@
     <string name="app_name">Majordom</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_start">Majordom</string>
     <string name="title_activity_book">Booking</string>
     <string name="title_activity_menu">Main menu</string>
     <string name="title_activity_async_task_loader">AsyncTaskLoaderActivity</string>
@@ -48,7 +48,7 @@
     <string name="title_activity_child_fragment">ChildFragmentActivity</string>
     <string name="Status">Not login</string>
     <string name="Role">Not assigned</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">Sign in</string>
     <string name="login_url">http://melville.webatu.com/lib/loginAndroid.php</string>
     <string name="title_activity_empty">EmptyActivity</string>
     <string name="title_activity_news">News</string>

@@ -1,36 +1,37 @@
 package com.github.yablonski.majordom;
 
+import android.app.ListActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class BookActivity extends ActionBarActivity {
+public class BookActivity extends ListActivity {
 
-    String[] bookmenu;
-    ListView mListView;
+    private String[] bookmenu;
+
+    //ListView mListView;
+    int[] images = { R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
+            R.drawable.parking, R.drawable.moving};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book);
-        mListView = (ListView) findViewById(R.id.mListView);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.booking,
-                android.R.layout.simple_list_item_1);
-        mListView.setAdapter(adapter);
         bookmenu = getResources().getStringArray(R.array.booking);
+        AdapterBook adapter = new AdapterBook(this, bookmenu, images);
+        setListAdapter(adapter);
     }
 
 }
