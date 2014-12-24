@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.yablonski.majordom.Api;
+import com.github.yablonski.majordom.CoreApplication;
+import com.github.yablonski.majordom.LoginActivity;
 import com.github.yablonski.majordom.StartActivity;
 import com.github.yablonski.majordom.processing.StringProcessor;
 
@@ -21,26 +23,34 @@ import org.apache.http.auth.AuthenticationException;
  */
 public class OAuthHelper {
 
+    //public static final String KEY = "OAuthHelper";
+
     public static interface Callbacks {
         void onError(Exception e);
         void onSuccess();
     }
 
+    //public static OAuthHelper get(Context context) {
+    //    return CoreApplication.get(context, KEY);
+    //}
+
     private static String sToken;
     //private static String token;
-    //Context mContext;
+    //public static Context mContext;
     public static final String REDIRECT_URL = "http://melvillestrada.com/blank.html";
     public static final String AUTHORIZATION_URL = "http://melvillestrada.com/lib/userAndroid.php";
     private static final String TAG = OAuthHelper.class.getSimpleName();
-    static SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
     public static final String PREF_FILE_NAME = "PrefFile";
 
-    //Context mContext = Api.
+    //static Context mContext;
     //Context context = getActivity(activity);
+
 
     public static String sign(String url) {
 
         //sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.);
         sToken = sharedPreferences.getString(PREF_FILE_NAME,"");
         Log.d(TAG, "token " + sToken);
         if (url.contains("?")) {
@@ -50,10 +60,11 @@ public class OAuthHelper {
         }
     }
 
-    public static boolean isLogged() {
-        //sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        //sToken = sharedPreferences.getString(PREF_FILE_NAME,"");
-        //sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
+    public static boolean isLogged(Context mContext) {
+        //SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(LoginActivity.class);
+        //SharedPreferences sharedPreferences1 = getSharedPreferences(LoginActivity.class);
+        //sToken = spref.getString(PREF_FILE_NAME,"");
+        sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
         return !TextUtils.isEmpty(sToken);
     }
 
@@ -67,6 +78,7 @@ public class OAuthHelper {
             if (!TextUtils.isEmpty(accessToken)) { //if accessToken is not empty
                 Log.d(TAG, "token " + accessToken);
                 //TODO save token to the secure store
+                //sharedPreferences = getSharedPreferences(mContext);
                 sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString(PREF_FILE_NAME, accessToken);

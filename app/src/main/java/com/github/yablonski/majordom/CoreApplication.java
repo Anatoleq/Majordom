@@ -3,6 +3,7 @@ package com.github.yablonski.majordom;
 import android.app.Application;
 import android.content.Context;
 
+import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.image.ImageLoader;
 import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
@@ -21,6 +22,8 @@ public class CoreApplication extends Application {
     private NewsDataSource mNewsDataSource;
     private CachedHttpDataSource mCachedHttpDataSource;
     private ImageLoader mImageLoader;
+    private OAuthHelper mOAuthHelper;
+    //public static app;
 
     @Override
     public void onCreate() {
@@ -30,6 +33,10 @@ public class CoreApplication extends Application {
         mUserDataSource = new UserDataSource();
         mNewsDataSource = new NewsDataSource();
         mCachedHttpDataSource = new CachedHttpDataSource(this);
+        /*public static getApp(){
+            getApplicationContext(this);
+        }*/
+
     }
 
     @Override
@@ -49,6 +56,14 @@ public class CoreApplication extends Application {
             }
             return mNewsDataSource;
         }
+
+        /*if (OAuthHelper.KEY.equals(name)) {
+            //for android kitkat +
+            if (mOAuthHelper == null) {
+                mOAuthHelper = new OAuthHelper();
+            }
+            return mOAuthHelper;
+        }*/
 
         if (VkDataSource.KEY.equals(name)) {
             //for android kitkat +
