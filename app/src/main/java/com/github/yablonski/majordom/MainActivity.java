@@ -25,7 +25,7 @@ import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.processing.UserArrayProcessor;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
-import com.github.yablonski.majordom.source.VkDataSource;
+//import com.github.yablonski.majordom.source.VkDataSource;
 
 //import com.epam.training.taskmanager.bo.NoteGsonModel;
 

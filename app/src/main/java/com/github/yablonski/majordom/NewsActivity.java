@@ -1,37 +1,26 @@
 package com.github.yablonski.majordom;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.News;
-import com.github.yablonski.majordom.bo.User;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.image.ImageLoader;
-import com.github.yablonski.majordom.processing.BitmapProcessor;
 import com.github.yablonski.majordom.processing.NewsArrayProcessor;
-import com.github.yablonski.majordom.processing.UserArrayProcessor;
 import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
-import com.github.yablonski.majordom.source.VkDataSource;
 
 import java.util.List;
 
@@ -43,12 +32,16 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageLoader mImageLoader;
+    private String token;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+        if (getIntent().hasExtra(OAuthHelper.TOKEN)) {
+            token = getIntent().getStringExtra(OAuthHelper.TOKEN);
+        }
         mImageLoader = ImageLoader.get(NewsActivity.this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();
@@ -78,7 +71,11 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     }
 
     private String getUrl() {
-        return Api.NEWS_GET;
+        if (Api.NEWS_GET.contains("?")) {
+            return Api.NEWS_GET + "&access_token="+token;
+        } else {
+            return Api.NEWS_GET + "?access_token="+token;
+        }
     }
 
     @Override

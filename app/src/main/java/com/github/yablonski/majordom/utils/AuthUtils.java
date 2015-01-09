@@ -1,6 +1,5 @@
 package com.github.yablonski.majordom.utils;
 
-import com.github.yablonski.majordom.VkOAuthHelper;
 import com.github.yablonski.majordom.auth.OAuthHelper;
 
 /**
@@ -8,6 +7,6 @@ import com.github.yablonski.majordom.auth.OAuthHelper;
  */
 public class AuthUtils {
     public static boolean isLogged() {
-        return VkOAuthHelper.isLogged();
+        return true;
     }
 }

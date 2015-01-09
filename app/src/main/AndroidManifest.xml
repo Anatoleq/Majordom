@@ -74,6 +74,10 @@
             android:name=".ImageActivity"
             android:label="@string/title_activity_image" >
         </activity>
+        <activity
+            android:name=".ElectricActivity"
+            android:label="@string/title_activity_electric" >
+        </activity>
     </application>
 
 </manifest>

@@ -9,16 +9,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.github.yablonski.majordom.auth.OAuthHelper;
+
 public class MenuActivity extends Activity {
 
     final String LOG_TAG = "myLogs";
 
     ListView listView;
     String[] menu;
+    private String token;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        if (getIntent().hasExtra(OAuthHelper.TOKEN)) {
+            token = getIntent().getStringExtra(OAuthHelper.TOKEN);
+        }
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -55,12 +61,9 @@ public class MenuActivity extends Activity {
                         startActivity(newActivity4);
                         break;
                     case 5:
-                        Intent newActivity5 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity5);
-                        break;
-                    case 6:
-                        Intent newActivity6 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity6);
+                        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
+                        intent.putExtra(OAuthHelper.TOKEN, token);
+                        startActivity(intent);
                         break;
                     default:
                         // Nothing do!

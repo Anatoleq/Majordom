@@ -6,7 +6,7 @@ import com.github.yablonski.majordom.source.HttpDataSource;
 import java.io.InputStream;
 
 /**
- * Created by IstiN on 14.11.2014.
+ * Created by Acer on 14.11.2014.
  */
 public class BitmapProcessor implements Processor<Bitmap, InputStream> {
 

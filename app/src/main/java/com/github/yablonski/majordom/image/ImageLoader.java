@@ -25,7 +25,7 @@ import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.DataSource;
 
 /**
- * Created by IstiN on 10.12.2014.
+ * Created by Acer on 10.12.2014.
  */
 public class ImageLoader {
 

@@ -32,6 +32,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Acer on 22.11.2014.
+ */
 
 public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks{
 
@@ -54,7 +57,7 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
     @Override
     public void onError(Exception e) {
         new AlertDialog.Builder(this)
-                .setTitle("Error")
+                .setTitle("Authorisation error")
                 .setMessage(e.getMessage())
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
@@ -68,8 +71,10 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
     }
 
     @Override
-    public void onSuccess() {
-        setResult(RESULT_OK);
+    public void onSuccess(String token) {
+        Intent intent = getIntent();
+        intent.putExtra(OAuthHelper.TOKEN, token);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -97,7 +102,6 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
                 finish();
                 return true;
             } else {
-                //view.loadUrl(url);
                 return false;
             }
         }
@@ -115,17 +119,8 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             Log.d(TAG, "finish " + url);
-         /*   if (url.contains("&amp;")) {
-                url = url.replace("&amp;", "&");
-                Log.d(TAG, "overr after replace " + url);
-                view.loadUrl(url);
-                return;
-            }*/
             view.setVisibility(View.VISIBLE);
-            //if (!OAuthHelper.proceedRedirectURL(LoginActivity.this, url, success)) {
             dismissProgress();
-            //showProgress();
-            //}
         }
     }
     private void dismissProgress() {

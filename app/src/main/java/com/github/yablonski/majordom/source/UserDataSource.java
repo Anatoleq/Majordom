@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.github.yablonski.majordom.Api;
 import com.github.yablonski.majordom.CoreApplication;
-import com.github.yablonski.majordom.VkOAuthHelper;
 import com.github.yablonski.majordom.auth.OAuthHelper;
 
 import java.io.InputStream;
@@ -27,12 +26,14 @@ public class UserDataSource extends HttpDataSource {
 
     @Override
     public InputStream getResult(String p) throws Exception {
-        String signUrl = VkOAuthHelper.sign(p);
+        //Context context = getUserDataSource();
+        String signUrl = p;
+        /*String signUrl = OAuthHelper.sign(p);
         Log.d(TAG, "sign url " + signUrl);
         String versionValue = Uri.parse(signUrl).getQueryParameter(Api.VERSION_PARAM);
         if (TextUtils.isEmpty(versionValue)) {
             signUrl = signUrl + "&" + Api.VERSION_PARAM + "=" + Api.VERSION_VALUE;
-        }
+        }*/
         return super.getResult(signUrl);
     }
 }

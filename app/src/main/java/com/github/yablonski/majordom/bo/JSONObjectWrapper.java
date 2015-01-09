@@ -11,9 +11,6 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-/**
- * Created by IstiN on 21.10.2014.
- */
 public class JSONObjectWrapper implements Parcelable {
 
     private JSONObject mJO;

@@ -14,6 +14,7 @@ import com.github.yablonski.majordom.Api;
 import com.github.yablonski.majordom.CoreApplication;
 import com.github.yablonski.majordom.LoginActivity;
 import com.github.yablonski.majordom.StartActivity;
+import com.github.yablonski.majordom.helper.AppPreferences;
 import com.github.yablonski.majordom.processing.StringProcessor;
 
 import org.apache.http.auth.AuthenticationException;
@@ -23,50 +24,50 @@ import org.apache.http.auth.AuthenticationException;
  */
 public class OAuthHelper {
 
-    //public static final String KEY = "OAuthHelper";
 
     public static interface Callbacks {
         void onError(Exception e);
-        void onSuccess();
+        void onSuccess(String token);
     }
 
-    //public static OAuthHelper get(Context context) {
-    //    return CoreApplication.get(context, KEY);
-    //}
-
-    private static String sToken;
-    //private static String token;
-    //public static Context mContext;
+    public static Context mContext;
+    public static final String TOKEN = "token";
     public static final String REDIRECT_URL = "http://melvillestrada.com/blank.html";
     public static final String AUTHORIZATION_URL = "http://melvillestrada.com/lib/userAndroid.php";
-    private static final String TAG = OAuthHelper.class.getSimpleName();
-    public static SharedPreferences sharedPreferences;
-    public static final String PREF_FILE_NAME = "PrefFile";
+    public static final String TAG = OAuthHelper.class.getSimpleName();
 
-    //static Context mContext;
-    //Context context = getActivity(activity);
+    /*public static String getToken() {
+        Context context = mContext.getApplicationContext();
+        if (context == null) Log.d(TAG, "no context ");
+        String token = PreferenceManager.getDefaultSharedPreferences(context).getString(OAuthHelper.TOKEN, "");
+        if (!TextUtils.isEmpty(token))
+            try {
+                token = EncryptManager.decrypt(context, token);
+            } catch (Exception e) {
+                e.printStackTrace();
+                token = "";
+            }
+        Log.d(TAG, "token " + token);
+        return token;
+    }*/
 
-
-    public static String sign(String url) {
-
-        //sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.);
-        sToken = sharedPreferences.getString(PREF_FILE_NAME,"");
-        Log.d(TAG, "token " + sToken);
+    /*public static String sign(String url) {
+        Log.d(TAG, "token " + getToken());
         if (url.contains("?")) {
-            return url + "&access_token="+sToken;
+            return url + "&access_token="+getToken();
         } else {
-            return url + "?access_token="+sToken;
+            return url + "?access_token="+getToken();
         }
-    }
+    }*/
 
-    public static boolean isLogged(Context mContext) {
+    //public boolean isLogged(Context mContext) {
+        //_appPrefs = new AppPreferences(getApplicationContext(StartActivity.class));
         //SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(LoginActivity.class);
         //SharedPreferences sharedPreferences1 = getSharedPreferences(LoginActivity.class);
         //sToken = spref.getString(PREF_FILE_NAME,"");
-        sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
-        return !TextUtils.isEmpty(sToken);
-    }
+        /*sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
+        return !TextUtils.isEmpty(sToken);*/
+    //}
 
     public static boolean proceedRedirectURL(Activity activity, String url, Callbacks callbacks) {
         if (url.startsWith(REDIRECT_URL)) {
@@ -75,19 +76,20 @@ public class OAuthHelper {
             Uri parsedFragment = Uri.parse("http://temp.com?" + fragment);
             String accessToken = parsedFragment.getQueryParameter("access_token"); //Searches the query string for the first value with the given key and interprets it
             // as a boolean value.
-            if (!TextUtils.isEmpty(accessToken)) { //if accessToken is not empty
+            if (!TextUtils.isEmpty(accessToken)) {
                 Log.d(TAG, "token " + accessToken);
-                //TODO save token to the secure store
-                //sharedPreferences = getSharedPreferences(mContext);
-                sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(PREF_FILE_NAME, accessToken);
-                editor.commit();
-                callbacks.onSuccess();
-                //TODO create account in account manager
+                callbacks.onSuccess(accessToken);
                 return true;
             } else {
-                //TODO check access denied/finish
+                String error = parsedFragment.getQueryParameter("error");
+                String errorDescription = parsedFragment.getQueryParameter("error_description");
+                String errorReason = parsedFragment.getQueryParameter("error_reason");
+                if (!TextUtils.isEmpty(error)) {
+                    callbacks.onError(new AuthenticationException(error+", reason : " + errorReason +"("+errorDescription+")"));
+                    return false;
+                } else {
+                        //WTF?
+                }
             }
         }
         return false;

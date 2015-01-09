@@ -9,7 +9,7 @@ import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
-import com.github.yablonski.majordom.source.VkDataSource;
+
 
 /**
  * Created by Acer on 25.11.2014.
@@ -17,26 +17,18 @@ import com.github.yablonski.majordom.source.VkDataSource;
 public class CoreApplication extends Application {
 
     private HttpDataSource mHttpDataSource;
-    private VkDataSource mVkDataSource;
     private UserDataSource mUserDataSource;
     private NewsDataSource mNewsDataSource;
     private CachedHttpDataSource mCachedHttpDataSource;
     private ImageLoader mImageLoader;
-    private OAuthHelper mOAuthHelper;
-    //public static app;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mHttpDataSource = new HttpDataSource();
-        mVkDataSource = new VkDataSource();
         mUserDataSource = new UserDataSource();
         mNewsDataSource = new NewsDataSource();
         mCachedHttpDataSource = new CachedHttpDataSource(this);
-        /*public static getApp(){
-            getApplicationContext(this);
-        }*/
-
     }
 
     @Override
@@ -57,21 +49,6 @@ public class CoreApplication extends Application {
             return mNewsDataSource;
         }
 
-        /*if (OAuthHelper.KEY.equals(name)) {
-            //for android kitkat +
-            if (mOAuthHelper == null) {
-                mOAuthHelper = new OAuthHelper();
-            }
-            return mOAuthHelper;
-        }*/
-
-        if (VkDataSource.KEY.equals(name)) {
-            //for android kitkat +
-            if (mVkDataSource == null) {
-                mVkDataSource = new VkDataSource();
-            }
-            return mVkDataSource;
-        }
         if (UserDataSource.KEY.equals(name)) {
             //for android kitkat +
             if (mUserDataSource == null) {

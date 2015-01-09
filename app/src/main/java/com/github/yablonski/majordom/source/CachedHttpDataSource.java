@@ -15,7 +15,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by IstiN on 03.12.2014.
+ * Created by Acer on 03.12.2014.
  */
 public class CachedHttpDataSource extends HttpDataSource {
 

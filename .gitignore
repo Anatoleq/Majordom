@@ -39,3 +39,21 @@ proguard/
 *.log
 
 *.iml
+app/src/main/java/com/github/yablonski/majordom/ImageActivity.java
+app/src/main/java/com/github/yablonski/majordom/LazyImageLoadAdapter.java
+app/src/main/java/com/github/yablonski/majordom/LazyImageLoader.java
+app/src/main/java/com/github/yablonski/majordom/auth/PersistantStorage.java
+app/src/main/java/com/github/yablonski/majordom/cache/FileCache.java
+app/src/main/java/com/github/yablonski/majordom/cache/MemoryCache.java
+app/src/main/java/com/github/yablonski/majordom/helper/AppPreferences.java
+app/src/main/java/com/github/yablonski/majordom/utils/Utils.java
+app/src/main/res/drawable/bar_bg.png
+app/src/main/res/drawable/bar_bg_thin.png
+app/src/main/res/drawable/dislike1.png
+app/src/main/res/drawable/icon.png
+app/src/main/res/drawable/stub.png
+app/src/main/res/layout/main.xml
+app/src/main/res/layout/activity_image.xml
+app/src/main/res/layout/listview_row.xml
+app/src/main/res/menu/menu_electric.xml
+app/src/main/res/menu/menu_image.xml

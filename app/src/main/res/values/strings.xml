@@ -31,8 +31,8 @@
     <string-array name="menu">
         <item>Booking</item>
         <item>Packages</item>
-        <item>Reports</item>
-        <item>Complaints</item>
+        <item>Add a Report</item>
+        <item>Add a complaint</item>
         <item>LostAndFound</item>
         <item>News</item>
     </string-array>
@@ -53,5 +53,6 @@
     <string name="title_activity_empty">EmptyActivity</string>
     <string name="title_activity_news">News</string>
     <string name="title_activity_image">ImageActivity</string>
+    <string name="title_activity_electric">ElectricActivity</string>
 
 </resources>
