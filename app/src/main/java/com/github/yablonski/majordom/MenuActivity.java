@@ -3,6 +3,7 @@ package com.github.yablonski.majordom;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +12,7 @@ import android.widget.ListView;
 
 import com.github.yablonski.majordom.auth.OAuthHelper;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends ActionBarActivity {
 
     final String LOG_TAG = "myLogs";
 
