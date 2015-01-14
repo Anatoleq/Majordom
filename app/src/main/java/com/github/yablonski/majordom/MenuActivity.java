@@ -18,6 +18,9 @@ public class MenuActivity extends ActionBarActivity {
 
     private ListView listView;
     public String[] menu;
+
+    //TODO move to common class remove from all activities fragment and etc.
+    //token need to be used in one place
     private String token;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MenuActivity extends ActionBarActivity {
                                     int position, long id) {
                 Log.d(LOG_TAG, "itemClick: position = " + position + ", id = "
                         + id);
+                //TODO create enum's
                 switch (position) {
                     case 0:
                         Intent newActivity0 = new Intent(MenuActivity.this,BookActivity.class);

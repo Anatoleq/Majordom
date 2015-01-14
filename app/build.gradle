@@ -7,6 +7,7 @@ android {
     defaultConfig {
         applicationId "com.github.yablonski.majordom"
         minSdkVersion 11
+        //TODO use latest version of android
         targetSdkVersion 20
         versionCode 1
         versionName "1.0"
@@ -20,6 +21,8 @@ android {
 }
 
 dependencies {
+
+    //TODO use latest version of libraries
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/gson-2.3.jar')
     compile 'com.android.support:appcompat-v7:21.0.0'
