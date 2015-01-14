@@ -14,7 +14,6 @@ import com.github.yablonski.majordom.Api;
 import com.github.yablonski.majordom.CoreApplication;
 import com.github.yablonski.majordom.LoginActivity;
 import com.github.yablonski.majordom.StartActivity;
-import com.github.yablonski.majordom.helper.AppPreferences;
 import com.github.yablonski.majordom.processing.StringProcessor;
 
 import org.apache.http.auth.AuthenticationException;

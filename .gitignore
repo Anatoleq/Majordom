@@ -1,5 +1,4 @@
 .gradle
-/gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
@@ -8,8 +7,6 @@
 /build
 /json_sample
 .idea
-gradlew
-gradlew.bat
 
 # Built application files
 *.apk
