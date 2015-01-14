@@ -30,10 +30,10 @@
     </string-array>
     <string-array name="menu">
         <item>Booking</item>
-        <item>Packages</item>
-        <item>Add a Report</item>
+        <item>My packages</item>
+        <item>Add a report</item>
         <item>Add a complaint</item>
-        <item>LostAndFound</item>
+        <item>Lost And Found</item>
         <item>News</item>
     </string-array>
     <string-array name="booking">
@@ -53,6 +53,10 @@
     <string name="title_activity_empty">EmptyActivity</string>
     <string name="title_activity_news">News</string>
     <string name="title_activity_image">ImageActivity</string>
-    <string name="title_activity_electric">ElectricActivity</string>
+    <string name="title_activity_electric">Electrician</string>
+    <string name="title_activity_book_parking">BookParkingActivity</string>
+    <string name="title_activity_packages">My packages</string>
+    <string name="title_activity_reports">Create a report</string>
+    <string name="title_activity_complaints">Create a Complaint</string>
 
 </resources>

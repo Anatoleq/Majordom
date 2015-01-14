@@ -28,7 +28,6 @@ public class BookActivity extends ListActivity {
     private String[] bookmenu;
     private final String LOG_TAG = "myLogs";
 
-    //ListView mListView;
     int[] images = { R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
             R.drawable.parking, R.drawable.moving};
 

@@ -78,6 +78,22 @@
             android:name=".ElectricActivity"
             android:label="@string/title_activity_electric" >
         </activity>
+        <activity
+            android:name=".BookParkingActivity"
+            android:label="@string/title_activity_book_parking" >
+        </activity>
+        <activity
+            android:name=".PackagesActivity"
+            android:label="@string/title_activity_packages" >
+        </activity>
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports" >
+        </activity>
+        <activity
+            android:name=".ComplaintsActivity"
+            android:label="@string/title_activity_complaints" >
+        </activity>
     </application>
 
 </manifest>

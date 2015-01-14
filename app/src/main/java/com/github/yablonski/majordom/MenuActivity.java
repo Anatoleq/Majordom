@@ -15,8 +15,8 @@ public class MenuActivity extends Activity {
 
     final String LOG_TAG = "myLogs";
 
-    ListView listView;
-    String[] menu;
+    private ListView listView;
+    public String[] menu;
     private String token;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -45,16 +45,19 @@ public class MenuActivity extends Activity {
                         startActivity(newActivity0);
                         break;
                     case 1:
-                        Intent newActivity1 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity1);
+                        Intent intentPackages = new Intent(MenuActivity.this,PackagesActivity.class);
+                        intentPackages.putExtra(OAuthHelper.TOKEN, token);
+                        startActivity(intentPackages);
                         break;
                     case 2:
-                        Intent newActivity2 = new Intent(MenuActivity.this,BookActivity.class);
-                        startActivity(newActivity2);
+                        Intent intentReports = new Intent(MenuActivity.this,ReportsActivity.class);
+                        intentReports.putExtra(OAuthHelper.TOKEN, token);
+                        startActivity(intentReports);
                         break;
                     case 3:
-                        Intent newActivity3 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity3);
+                        Intent intentComplaints = new Intent(MenuActivity.this,ComplaintsActivity.class);
+                        intentComplaints.putExtra(OAuthHelper.TOKEN, token);
+                        startActivity(intentComplaints);
                         break;
                     case 4:
                         Intent newActivity4 = new Intent(MenuActivity.this,NewsActivity.class);

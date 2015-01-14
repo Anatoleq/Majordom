@@ -8,6 +8,7 @@ import com.github.yablonski.majordom.image.ImageLoader;
 import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
+import com.github.yablonski.majordom.source.PackagesDataSource;
 import com.github.yablonski.majordom.source.UserDataSource;
 
 
@@ -19,6 +20,7 @@ public class CoreApplication extends Application {
     private HttpDataSource mHttpDataSource;
     private UserDataSource mUserDataSource;
     private NewsDataSource mNewsDataSource;
+    private PackagesDataSource mPackagesDataSource;
     private CachedHttpDataSource mCachedHttpDataSource;
     private ImageLoader mImageLoader;
 
@@ -28,6 +30,7 @@ public class CoreApplication extends Application {
         mHttpDataSource = new HttpDataSource();
         mUserDataSource = new UserDataSource();
         mNewsDataSource = new NewsDataSource();
+        mPackagesDataSource = new PackagesDataSource();
         mCachedHttpDataSource = new CachedHttpDataSource(this);
     }
 
@@ -47,6 +50,14 @@ public class CoreApplication extends Application {
                 mNewsDataSource = new NewsDataSource();
             }
             return mNewsDataSource;
+        }
+
+        if (PackagesDataSource.KEY.equals(name)) {
+            //for android kitkat +
+            if (mPackagesDataSource == null) {
+                mPackagesDataSource = new PackagesDataSource();
+            }
+            return mPackagesDataSource;
         }
 
         if (UserDataSource.KEY.equals(name)) {

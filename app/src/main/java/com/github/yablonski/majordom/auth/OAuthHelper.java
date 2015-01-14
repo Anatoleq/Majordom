@@ -36,38 +36,6 @@ public class OAuthHelper {
     public static final String AUTHORIZATION_URL = "http://melvillestrada.com/lib/userAndroid.php";
     public static final String TAG = OAuthHelper.class.getSimpleName();
 
-    /*public static String getToken() {
-        Context context = mContext.getApplicationContext();
-        if (context == null) Log.d(TAG, "no context ");
-        String token = PreferenceManager.getDefaultSharedPreferences(context).getString(OAuthHelper.TOKEN, "");
-        if (!TextUtils.isEmpty(token))
-            try {
-                token = EncryptManager.decrypt(context, token);
-            } catch (Exception e) {
-                e.printStackTrace();
-                token = "";
-            }
-        Log.d(TAG, "token " + token);
-        return token;
-    }*/
-
-    /*public static String sign(String url) {
-        Log.d(TAG, "token " + getToken());
-        if (url.contains("?")) {
-            return url + "&access_token="+getToken();
-        } else {
-            return url + "?access_token="+getToken();
-        }
-    }*/
-
-    //public boolean isLogged(Context mContext) {
-        //_appPrefs = new AppPreferences(getApplicationContext(StartActivity.class));
-        //SharedPreferences spref = PreferenceManager.getDefaultSharedPreferences(LoginActivity.class);
-        //SharedPreferences sharedPreferences1 = getSharedPreferences(LoginActivity.class);
-        //sToken = spref.getString(PREF_FILE_NAME,"");
-        /*sToken = PreferenceManager.METADATA_KEY_PREFERENCES;
-        return !TextUtils.isEmpty(sToken);*/
-    //}
 
     public static boolean proceedRedirectURL(Activity activity, String url, Callbacks callbacks) {
         if (url.startsWith(REDIRECT_URL)) {
@@ -88,7 +56,6 @@ public class OAuthHelper {
                     callbacks.onError(new AuthenticationException(error+", reason : " + errorReason +"("+errorDescription+")"));
                     return false;
                 } else {
-                        //WTF?
                 }
             }
         }
