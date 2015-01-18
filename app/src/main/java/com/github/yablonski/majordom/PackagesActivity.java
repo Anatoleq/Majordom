@@ -5,15 +5,12 @@ import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.Packages;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.processing.PackagesArrayProcessor;
@@ -28,7 +25,6 @@ public class PackagesActivity extends ActionBarActivity implements DataManager.C
     private ArrayAdapter mAdapter;
     private PackagesArrayProcessor mPackagesArrayProcessor = new PackagesArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private String token;
     private List<Packages> mData;
     private View headerView;
 
@@ -36,10 +32,6 @@ public class PackagesActivity extends ActionBarActivity implements DataManager.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packages);
-        if (getIntent().hasExtra(OAuthHelper.TOKEN)) {
-            token = getIntent().getStringExtra(OAuthHelper.TOKEN);
-        }
-//        Log.d(TAG, "token "+token);
             mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
             final HttpDataSource dataSource = getHttpDataSource();
             final PackagesArrayProcessor processor = getProcessor();
@@ -68,11 +60,7 @@ public class PackagesActivity extends ActionBarActivity implements DataManager.C
     }
 
     private String getUrl() {
-        if (Api.PACKAGES_GET.contains("?")) {
-            return Api.PACKAGES_GET + "&token=" + token;
-        } else {
-            return Api.PACKAGES_GET + "?token=" + token;
-        }
+        return Api.PACKAGES_GET;
     }
 
     @Override

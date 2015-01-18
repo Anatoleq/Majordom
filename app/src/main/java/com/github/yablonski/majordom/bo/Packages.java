@@ -9,14 +9,13 @@ import org.json.JSONObject;
  * Created by Acer on 12.01.2015.
  */
 public class Packages extends JSONObjectWrapper {
-        //private Long senderId;
-        public final String TAG = "myLog";
-        private static final String SENDER = "sender";
-        private static final String INCOME_DATE = "incomedate";
-        private static final String RECEIVED_DATE = "receiveddate";
 
-        public static final Parcelable.Creator<Packages> CREATOR
-                = new Parcelable.Creator<Packages>() {
+    private static final String SENDER = "sender";
+    private static final String INCOME_DATE = "incomedate";
+    private static final String RECEIVED_DATE = "receiveddate";
+
+    public static final Parcelable.Creator<Packages> CREATOR
+        = new Parcelable.Creator<Packages>() {
             public Packages createFromParcel(Parcel in) {
                 return new Packages(in);
             }
@@ -25,15 +24,15 @@ public class Packages extends JSONObjectWrapper {
             }
         };
 
-        public Packages(String jsonObject) {
+    public Packages(String jsonObject) {
             super(jsonObject);
         }
 
-        public Packages(JSONObject jsonObject) {
+    public Packages(JSONObject jsonObject) {
             super(jsonObject);
         }
 
-        protected Packages(Parcel in) {
+    protected Packages(Parcel in) {
             super(in);
         }
 
@@ -49,7 +48,4 @@ public class Packages extends JSONObjectWrapper {
         return getString(RECEIVED_DATE);
     }
 
-/*    public Long getId() {
-        return getLong(ID);
-    }*/
 }

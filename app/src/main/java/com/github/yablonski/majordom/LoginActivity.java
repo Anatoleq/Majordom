@@ -1,36 +1,18 @@
 package com.github.yablonski.majordom;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.yablonski.majordom.auth.OAuthHelper;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Acer on 22.11.2014.
@@ -51,7 +33,7 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         mWebView.setWebViewClient(new MWebViewClient());
-        mWebView.loadUrl(OAuthHelper.AUTHORIZATION_URL);
+        mWebView.loadUrl(Api.AUTHORIZATION_URL);
     }
 
     @Override

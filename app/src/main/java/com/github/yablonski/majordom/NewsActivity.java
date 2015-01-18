@@ -71,11 +71,7 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     }
 
     private String getUrl() {
-        if (Api.NEWS_GET.contains("?")) {
-            return Api.NEWS_GET + "&access_token="+token;
-        } else {
-            return Api.NEWS_GET + "?access_token="+token;
-        }
+        return Api.NEWS_GET;
     }
 
     @Override

@@ -2,26 +2,11 @@ package com.github.yablonski.majordom;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
-import android.widget.SimpleExpandableListAdapter;
-import android.widget.Toast;
-
-import com.github.yablonski.majordom.auth.OAuthHelper;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class BookActivity extends ListActivity {
 
@@ -63,7 +48,6 @@ public class BookActivity extends ListActivity {
                         break;
                     case 4:
                         Intent intent = new Intent(BookActivity.this, NewsActivity.class);
-                        //intent.putExtra(OAuthHelper.TOKEN, token);
                         startActivity(intent);
                         break;
                     default:
