@@ -38,31 +38,6 @@
             android:label="@string/title_activity_menu" >
         </activity>
         <activity
-            android:name=".AsyncTaskLoaderActivity"
-            android:label="@string/title_activity_async_task_loader" >
-        </activity>
-        <activity
-            android:name=".VkLoginActivity"
-            android:label="@string/title_activity_vk_login" >
-        </activity>
-        <activity
-            android:name=".SocialActivity"
-            android:label="@string/title_activity_social" >
-        </activity>
-        <activity
-            android:name=".FragmentActivity"
-            android:label="@string/title_activity_fragment" >
-            <intent-filter>
-                <action android:name="android.intent.action.showfragments" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".DetailsActivity"
-            android:label="@string/title_activity_details" >
-        </activity>
-        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
@@ -71,12 +46,8 @@
             android:label="@string/title_activity_news" >
         </activity>
         <activity
-            android:name=".ImageActivity"
-            android:label="@string/title_activity_image" >
-        </activity>
-        <activity
-            android:name=".ElectricActivity"
-            android:label="@string/title_activity_electric" >
+            android:name=".BookServiceActivity"
+            android:label="@string/title_activity_bookservice" >
         </activity>
         <activity
             android:name=".BookParkingActivity"
@@ -89,10 +60,6 @@
         <activity
             android:name=".ReportsActivity"
             android:label="@string/title_activity_reports" >
-        </activity>
-        <activity
-            android:name=".ComplaintsActivity"
-            android:label="@string/title_activity_complaints" >
         </activity>
     </application>
 
