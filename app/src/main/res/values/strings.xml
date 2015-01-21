@@ -55,7 +55,7 @@
     <string name="title_activity_news">News</string>
     <string name="title_activity_image">ImageActivity</string>
     <string name="title_activity_bookservice">Book a service: </string>
-    <string name="title_activity_book_parking">Book a place at visitor's parking</string>
+    <string name="title_activity_book_parking">Book a place at visitor\'s parking</string>
     <string name="title_activity_packages">My packages</string>
     <string name="title_activity_reports">Create a report</string>
     <string name="title_activity_complaints">Create a Complaint</string>
@@ -66,10 +66,10 @@
     <string name="main_menu_complaints">Add a complaint</string>
     <string name="main_menu_lostnfound">Lost and found</string>
     <string name="main_menu_profile">My profile</string>
-    <string name="book_menu_electrician">Electrician</string>
-    <string name="book_menu_plumber">Plumber</string>
-    <string name="book_menu_moving">Move-in Move-out service</string>
-    <string name="book_menu_elevator">Elevator</string>
-    <string name="book_menu_parking">Parking</string>
+    <string name="book_menu_electrician">Book an electrician</string>
+    <string name="book_menu_plumber">Book a plumber</string>
+    <string name="book_menu_moving">Book a move-in move-out service</string>
+    <string name="book_menu_elevator">Book an elevator</string>
+    <string name="book_menu_parking">Book a visitor\'s parking</string>
 
 </resources>
