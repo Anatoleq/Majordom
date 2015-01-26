@@ -29,13 +29,13 @@
         <item>Content 4</item>
     </string-array>
     <string-array name="menu">
-        <item>My profile</item>
-        <item>Booking</item>
-        <item>My packages</item>
-        <item>Add a report</item>
-        <item>Add a complaint</item>
-        <item>Lost And Found</item>
-        <item>News</item>
+        <item>@string/main_menu_profile</item>
+        <item>@string/main_menu_booking</item>
+        <item>@string/main_menu_packages</item>
+        <item>@string/main_menu_reports</item>
+        <item>@string/main_menu_complaints</item>
+        <item>@string/main_menu_lostnfound</item>
+        <item>@string/main_menu_news</item>
     </string-array>
     <string-array name="booking">
         <item>Electrician</item>
@@ -71,5 +71,7 @@
     <string name="book_menu_moving">Book a move-in move-out service</string>
     <string name="book_menu_elevator">Book an elevator</string>
     <string name="book_menu_parking">Book a visitor\'s parking</string>
+    <string name="book_service_message">"Please describe your request here.\nWe will book a service as soon as possible."</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 
 </resources>

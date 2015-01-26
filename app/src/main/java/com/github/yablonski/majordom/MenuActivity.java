@@ -3,24 +3,24 @@ package com.github.yablonski.majordom;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuActivity extends ActionBarActivity {
 
-    final String LOG_TAG = "myLogs";
+    ListView listView;
 
-    private ListView listView;
-    public static String[] menu;
-    public static String key;
-    private String title;
+    private static String[] menuArray;
+    public static String sKey;
 
-    private enum Menu {
-        BOOKING(R.string.main_menu_booking),
+    public enum Menu {
         MY_PROFILE(R.string.main_menu_profile),
+        BOOKING(R.string.main_menu_booking),
         MY_PACKAGES(R.string.main_menu_packages),
         REPORTS(R.string.main_menu_reports),
         COMPLAINTS(R.string.main_menu_complaints),
@@ -40,82 +40,78 @@ public class MenuActivity extends ActionBarActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        final List<String> menuList = new ArrayList<String>();
+        for ( final Menu items : Menu.values() ) {
+            menuList.add( getString( items.getLabel() ) );
+        }
+
+        menuArray = new String[menuList.size()];
+        menuArray = menuList.toArray(menuArray);
+
         listView = (ListView) findViewById(R.id.listView);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        menu = getResources().getStringArray(R.array.menu);
-        MainMenuAdapter adapter = new MainMenuAdapter(this,menu);
-        listView.setAdapter(adapter);
-
+        listView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item,R.id.menuItemTextView, menuArray));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            //MenuItem menuItem = MenuItem.valueOf;
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                //String name = (String) parent.getItemAtPosition(position);
-                //Menu menuItem = Menu.valueOf(name);
-               // Log.d(LOG_TAG, "enum = " + name);
-                Menu menuItem = Menu.COMPLAINTS;
+                Menu menuItem = Menu.values()[position];
                 switch (menuItem) {
                     case BOOKING:
-                        Intent newActivity0 = new Intent(MenuActivity.this,BookActivity.class);
-                        startActivity(newActivity0);
+                        startBookActivity();
                         break;
                     case MY_PACKAGES:
-                        Intent intentPackages = new Intent(MenuActivity.this,PackagesActivity.class);
-                        startActivity(intentPackages);
+                        startPackagesActivity();
                         break;
                     case REPORTS:
-                        Intent intentReports = new Intent(MenuActivity.this,ReportsActivity.class);
-                        intentReports.putExtra(key,R.string.main_menu_reports);
-                        startActivity(intentReports);
+                        startReportsActivity();
                         break;
                     case COMPLAINTS:
-                        Intent intentComplaints = new Intent(MenuActivity.this,ReportsActivity.class);
-                        intentComplaints.putExtra(key,R.string.main_menu_complaints);
-                        startActivity(intentComplaints);
+                        startComplaintsActivity();
                         break;
                     case LOST_N_FOUND:
-                        Intent newActivity4 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity4);
+                        startLostAndFoundActivity();
                         break;
                     case NEWS:
-                        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
-                        startActivity(intent);
+                        startNewsActivity();
                         break;
                     case MY_PROFILE:
-                        Intent intentProfile = new Intent(MenuActivity.this, NewsActivity.class);
-                        startActivity(intentProfile);
+                        startProfileActivity();
                         break;
                 }
-                //TODO create enum's
-
-                /*switch (name) {
-                    case BOOKING:
-                        Intent newActivity0 = new Intent(MenuActivity.this,BookActivity.class);
-                        startActivity(newActivity0);
-                        break;
-                    case MY_PACKAGES:
-                        Intent intentPackages = new Intent(MenuActivity.this,PackagesActivity.class);
-                        startActivity(intentPackages);
-                        break;
-                    case REPORTS:
-                        Intent intentReports = new Intent(MenuActivity.this,ReportsActivity.class);
-                        startActivity(intentReports);
-                        break;
-                    case COMPLAINTS:
-                        Intent intentComplaints = new Intent(MenuActivity.this,ComplaintsActivity.class);
-                        startActivity(intentComplaints);
-                        break;
-                    case LOST_N_FOUND:
-                        Intent newActivity4 = new Intent(MenuActivity.this,NewsActivity.class);
-                        startActivity(newActivity4);
-                        break;
-                    case NEWS:
-                        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
-                        startActivity(intent);
-                        break;
-                }*/
+                //TODO create enum's - done
             }
         });
+
+    }
+    private void startBookActivity() {
+        Intent intent = new Intent(MenuActivity.this,BookActivity.class);
+        startActivity(intent);
+    }
+    private void startPackagesActivity() {
+        Intent intent = new Intent(MenuActivity.this,PackagesActivity.class);
+        startActivity(intent);
+    }
+    private void startReportsActivity() {
+        Intent intent = new Intent(MenuActivity.this,ReportsActivity.class);
+        intent.putExtra(sKey,R.string.main_menu_reports);
+        startActivity(intent);
+    }
+    private void startComplaintsActivity() {
+        Intent intent = new Intent(MenuActivity.this,ReportsActivity.class);
+        intent.putExtra(sKey,R.string.main_menu_complaints);
+        startActivity(intent);
+    }
+    private void startLostAndFoundActivity() {
+        Intent intent = new Intent(MenuActivity.this,NewsActivity.class);
+        startActivity(intent);
+    }
+    private void startNewsActivity(){
+        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
+        startActivity(intent);
+    }
+    private void startProfileActivity() {
+        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
+        startActivity(intent);
     }
 }

@@ -28,8 +28,8 @@ public class AdapterBook extends ArrayAdapter<String> {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.adapter_book, null,true);
 
-        TextView textView1 = (TextView) rowView.findViewById(android.R.id.text1);
-        textView1.setText(bookmenu[position]);
+        TextView bookItemTextView = (TextView) rowView.findViewById(android.R.id.text1);
+        bookItemTextView.setText(bookmenu[position]);
         ImageView imageView = (ImageView) rowView.findViewById(android.R.id.icon);
         imageView.setImageResource(images[position]);
         return rowView;

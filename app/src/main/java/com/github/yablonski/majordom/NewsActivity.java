@@ -28,20 +28,15 @@ import java.util.List;
 public class NewsActivity extends ActionBarActivity implements DataManager.Callback<List<News>>{
 
     private ArrayAdapter mAdapter;
-    //private static final String TAG = OAuthHelper.class.getSimpleName();
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageLoader mImageLoader;
-    private String token;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        if (getIntent().hasExtra(OAuthHelper.TOKEN)) {
-            token = getIntent().getStringExtra(OAuthHelper.TOKEN);
-        }
         mImageLoader = ImageLoader.get(NewsActivity.this);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();

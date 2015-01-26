@@ -26,9 +26,9 @@ public class News extends JSONObjectWrapper {
             }
     };
 
-    public News(String jsonObject) {
+    /*public News(String jsonObject) {
             super(jsonObject);
-        }
+        }*/
 
     public News(JSONObject jsonObject) {
             super(jsonObject);

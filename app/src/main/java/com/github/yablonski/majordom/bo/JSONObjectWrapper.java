@@ -9,7 +9,6 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 
 public class JSONObjectWrapper implements Parcelable {
 
@@ -66,12 +65,6 @@ public class JSONObjectWrapper implements Parcelable {
         dest.writeString(mJO.toString());
     }
 
-    /**
-     * Read from parcel.
-     *
-     * @param in
-     *            the in
-     */
     protected void readFromParcel(final Parcel in) {
         String string = in.readString();
         try {

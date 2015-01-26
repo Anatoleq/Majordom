@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class ReportsActivity extends ActionBarActivity {
 
-    private String TAG = "my_TAG";
+    public static final  String TAG = "my_TAG";
     private int id, titleId;
     private String title, message = "";
 
@@ -16,14 +16,17 @@ public class ReportsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        titleId = intent.getIntExtra(MenuActivity.key,id);
+        titleId = intent.getIntExtra(MenuActivity.sKey,id);
         title = getString(titleId);
         setTitle(title);
         setContentView(R.layout.activity_reports);
-        if (id == R.string.main_menu_reports) {
-            message = "Please write your report here.\nWe will solve it as soon as possible.";
-        } else {
-            message = "Please write your complaint here.\nWe will solve it as soon as possible.";
+        switch (titleId){
+            case R.string.main_menu_reports:
+                message = "Please write your report here.\nWe will solve it as soon as possible.";
+                break;
+            case R.string.main_menu_complaints:
+                message = "Please write your complaint here.\nWe will solve it as soon as possible.";;
+                break;
         }
         TextView titleReportTextView = (TextView) findViewById(R.id.titleReportTextView);
         titleReportTextView.setText(message);

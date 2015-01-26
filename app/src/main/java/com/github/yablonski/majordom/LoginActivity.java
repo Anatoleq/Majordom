@@ -39,7 +39,7 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
     @Override
     public void onError(Exception e) {
         new AlertDialog.Builder(this)
-                .setTitle("Authorisation error")
+                .setTitle("Error of authorisation")
                 .setMessage(e.getMessage())
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override

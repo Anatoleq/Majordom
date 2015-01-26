@@ -9,10 +9,11 @@ import org.json.JSONObject;
  * Created by Acer on 04.11.2014.
  */
 public class User extends JSONObjectWrapper {
-    //private String response;
     private Long uid;
-    private static final String USER_NAME = "user_name";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
     private static final String EMAIL = "email";
+    private static final String Suite_NR = "suite_nr";
 
     public static final Parcelable.Creator<User> CREATOR
             = new Parcelable.Creator<User>() {
@@ -37,12 +38,20 @@ public class User extends JSONObjectWrapper {
         super(in);
     }
 
-    public String getUserName() {
-        return getString(USER_NAME);
+    public String getFirstName() {
+        return getString(FIRST_NAME);
+    }
+
+    public String getLastName() {
+        return getString(LAST_NAME);
     }
 
     public String getEmail() {
         return getString(EMAIL);
+    }
+
+    public String getSuiteNr() {
+        return getString(Suite_NR);
     }
 
 }

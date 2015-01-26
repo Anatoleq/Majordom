@@ -11,4 +11,5 @@ public class Api {
     public static final String PACKAGES_GET = BASE_PATH + "inc/packagestojson.php";
     public static final String REDIRECT_URL = BASE_PATH + "blank.html";
     public static final String AUTHORIZATION_URL = BASE_PATH + "lib/userAndroid.php";
+    public static final String PROFILE_GET = BASE_PATH + "inc/usertojson.php";
 }

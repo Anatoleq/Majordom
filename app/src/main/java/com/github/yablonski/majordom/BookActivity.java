@@ -1,59 +1,122 @@
 package com.github.yablonski.majordom;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class BookActivity extends ListActivity {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    private String[] bookmenu;
-    private final String LOG_TAG = "myLogs";
+public class BookActivity extends ActionBarActivity {
 
-    int[] images = { R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
+    private String[] bookmenu, bookMenuArray;
+    public static String sBookKey;
+    private int[] images = { R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
             R.drawable.parking, R.drawable.moving};
+
+    public enum BookMenu{
+        ELECTRICIAN(R.string.book_menu_electrician, R.drawable.bulb3),
+        PLUMBER(R.string.book_menu_plumber, R.drawable.poor),
+        ELEVATOR(R.string.book_menu_elevator, R.drawable.elevator),
+        PARKING(R.string.book_menu_parking, R.drawable.parking),
+        MOVING(R.string.book_menu_moving, R.drawable.moving);
+
+        private int label;
+        private int drawable;
+
+        BookMenu(int label, int drawable) {
+            this.label = label;
+            this.drawable = drawable;
+        }
+
+        public int getLabel() {
+            return label;
+        }
+
+        public int getDrawable() {
+            return drawable;
+        }
+
+    }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bookmenu = getResources().getStringArray(R.array.booking);
-        AdapterBook adapter = new AdapterBook(this, bookmenu, images);
-        setListAdapter(adapter);
-        ListView mListView = getListView();
+        setContentView(R.layout.activity_book);
 
+        final List<String> bookMenuList = new ArrayList<String>();
+        for ( final BookMenu items : BookMenu.values() ) {
+            bookMenuList.add( getString( items.getLabel() ) );
+        }
+
+        bookMenuArray = new String[bookMenuList.size()];
+        bookMenuArray = bookMenuList.toArray(bookMenuArray);
+
+        ListView mListView = (ListView) findViewById(R.id.mListView);
+        bookmenu = getResources().getStringArray(R.array.booking);
+        AdapterBook adapter = new AdapterBook(this, bookMenuArray, images);
+        mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Log.d(LOG_TAG, "itemClick: position = " + position + ", id = "
-                        + id);
+                                        int position, long id) {
                 switch (position) {
                     case 0:
-                        Intent newActivity0 = new Intent(BookActivity.this,ElectricActivity.class);
-                        startActivity(newActivity0);
+                        startElectrician();
                         break;
                     case 1:
-                        Intent newActivity1 = new Intent(BookActivity.this,NewsActivity.class);
-                        startActivity(newActivity1);
+                        startPlumber();
                         break;
                     case 2:
-                        Intent newActivity2 = new Intent(BookActivity.this,BookActivity.class);
-                        startActivity(newActivity2);
+                        startElevator();
                         break;
                     case 3:
-                        Intent newActivity3 = new Intent(BookActivity.this,NewsActivity.class);
-                        startActivity(newActivity3);
+                        startParking();
                         break;
                     case 4:
-                        Intent intent = new Intent(BookActivity.this, NewsActivity.class);
-                        startActivity(intent);
+                        startMoving();
                         break;
-                    default:
-                        // Nothing do!
                 }
             }
         });
+    }
+    private void startElectrician(){
+        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
+        intent.putExtra(sBookKey, R.string.book_menu_electrician);
+        startActivity(intent);
+    }
+
+    private void startPlumber(){
+        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
+        intent.putExtra(sBookKey, R.string.book_menu_plumber);
+        startActivity(intent);
+    }
+
+    private void startElevator(){
+        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
+        intent.putExtra(sBookKey, R.string.book_menu_elevator);
+        startActivity(intent);
+    }
+
+    private void startParking(){
+        Intent intent = new Intent(BookActivity.this, BookParkingActivity.class);
+        intent.putExtra(sBookKey, R.string.book_menu_parking);
+        startActivity(intent);
+    }
+
+    private void startMoving(){
+        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
+        intent.putExtra(sBookKey, R.string.book_menu_moving);
+        startActivity(intent);
     }
 }

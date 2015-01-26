@@ -15,16 +15,16 @@ import java.util.List;
 public class UserArrayProcessor implements Processor<List<User>,InputStream>{
 
 @Override
-public List<User> process(InputStream inputStream) throws Exception {
+    public List<User> process(InputStream inputStream) throws Exception {
         String string = new StringProcessor().process(inputStream);
         JSONArray array = new JSONArray(string);
         //TODO wrapper for array
-        List<User> noteArray = new ArrayList<User>(array.length());
+        List<User> userArray = new ArrayList<User>(array.length());
         for (int i = 0; i < array.length(); i++) {
-        JSONObject jsonObject = array.getJSONObject(i);
-        User user = new User(jsonObject);
-        noteArray.add(user);
+            JSONObject jsonObject = array.getJSONObject(i);
+            User user = new User(jsonObject);
+            userArray.add(user);
         }
-        return noteArray;
-        }
+        return userArray;
+    }
 }
