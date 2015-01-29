@@ -3,6 +3,7 @@ package com.github.yablonski.majordom.source;
 import android.content.Context;
 
 import com.github.yablonski.majordom.CoreApplication;
+import com.github.yablonski.majordom.auth.OAuthHelper;
 
 import java.io.InputStream;
 
@@ -10,8 +11,6 @@ import java.io.InputStream;
  * Created by Acer on 25.11.2014.
  */
 public class UserDataSource extends HttpDataSource {
-
-    private static final String TAG = UserDataSource.class.getSimpleName();
 
     public static final String KEY = "UserDataSource";
 
@@ -21,7 +20,7 @@ public class UserDataSource extends HttpDataSource {
 
     @Override
     public InputStream getResult(String p) throws Exception {
-        String signUrl = p;
+        String signUrl = OAuthHelper.signUrl(p);
         return super.getResult(signUrl);
     }
 }

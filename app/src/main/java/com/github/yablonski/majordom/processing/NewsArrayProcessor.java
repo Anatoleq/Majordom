@@ -13,19 +13,19 @@ import java.util.List;
 /**
  * Created by Acer on 05.12.2014.
  */
-public class NewsArrayProcessor implements Processor<List<News>,InputStream>{
+public class NewsArrayProcessor implements Processor<List<News>, InputStream> {
 
-        @Override
-        public List<News> process(InputStream inputStream) throws Exception {
-            String string = new StringProcessor().process(inputStream);
-            JSONArray array = new JSONArray(string);
-            //TODO wrapper for array
-            List<News> noteArray = new ArrayList<News>(array.length());
-            for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                News news = new News(jsonObject);
-                noteArray.add(news);
-            }
-            return noteArray;
+    @Override
+    public List<News> process(InputStream inputStream) throws Exception {
+        String string = new StringProcessor().process(inputStream);
+        JSONArray array = new JSONArray(string);
+        //TODO wrapper for array
+        List<News> newsArray = new ArrayList<News>(array.length());
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject jsonObject = array.getJSONObject(i);
+            News news = new News(jsonObject);
+            newsArray.add(news);
         }
+        return newsArray;
+    }
 }

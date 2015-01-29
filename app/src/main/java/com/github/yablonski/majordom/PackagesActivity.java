@@ -19,8 +19,7 @@ import com.github.yablonski.majordom.source.PackagesDataSource;
 
 import java.util.List;
 
-
-public class PackagesActivity extends ActionBarActivity implements DataManager.Callback<List<Packages>>{
+public class PackagesActivity extends ActionBarActivity implements DataManager.Callback<List<Packages>> {
 
     private ArrayAdapter mAdapter;
     private PackagesArrayProcessor mPackagesArrayProcessor = new PackagesArrayProcessor();
@@ -32,16 +31,16 @@ public class PackagesActivity extends ActionBarActivity implements DataManager.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_packages);
-            mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-            final HttpDataSource dataSource = getHttpDataSource();
-            final PackagesArrayProcessor processor = getProcessor();
-            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    update(dataSource, processor);
-                }
-            });
-            update(dataSource, processor);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        final HttpDataSource dataSource = getHttpDataSource();
+        final PackagesArrayProcessor processor = getProcessor();
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                update(dataSource, processor);
+            }
+        });
+        update(dataSource, processor);
     }
 
     private PackagesArrayProcessor getProcessor() {
@@ -120,5 +119,4 @@ public class PackagesActivity extends ActionBarActivity implements DataManager.C
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(errorView.getText() + "\n" + e.getMessage());
     }
-
 }

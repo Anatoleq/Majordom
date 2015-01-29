@@ -18,13 +18,13 @@ import com.github.yablonski.majordom.auth.OAuthHelper;
 public class StartActivity extends ActionBarActivity {
 
     public static final int REQUEST_LOGIN = 0;
-    public static final String TAG = "myTag";
+    private static String sToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String token = getToken();
-        if (TextUtils.isEmpty(token)) {
+        sToken = getToken();
+        if (TextUtils.isEmpty(sToken)) {
             startActivityForResult(new Intent(this, LoginActivity.class), REQUEST_LOGIN);
         } else {
             startMenuActivity();
@@ -37,8 +37,8 @@ public class StartActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
             if (data.hasExtra(OAuthHelper.TOKEN)) {
-                String token = data.getStringExtra(OAuthHelper.TOKEN);
-                saveToken(token);
+                sToken = data.getStringExtra(OAuthHelper.TOKEN);
+                saveToken(sToken);
                 startMenuActivity();
             } else {
                 finish();
@@ -60,7 +60,7 @@ public class StartActivity extends ActionBarActivity {
             prefEditor.remove(OAuthHelper.TOKEN);
         } else {
             try {
-                token = EncryptManager.encrypt(this, token);
+                sToken = EncryptManager.encrypt(this, token);
                 prefEditor.putString(OAuthHelper.TOKEN, token);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -71,15 +71,15 @@ public class StartActivity extends ActionBarActivity {
     }
 
     private String getToken() {
-        String token = PreferenceManager.getDefaultSharedPreferences(this).getString(OAuthHelper.TOKEN, "");
-        if (!TextUtils.isEmpty(token))
+        sToken = PreferenceManager.getDefaultSharedPreferences(this).getString(OAuthHelper.TOKEN, "");
+        if (!TextUtils.isEmpty(sToken))
             try {
-                token = EncryptManager.decrypt(this, token);
-                OAuthHelper.sToken = token;
+                sToken = EncryptManager.decrypt(this, sToken);
+                OAuthHelper.sAuthToken = sToken;
             } catch (Exception e) {
                 e.printStackTrace();
-                token = "";
+                sToken = "";
             }
-        return token;
+        return sToken;
     }
 }

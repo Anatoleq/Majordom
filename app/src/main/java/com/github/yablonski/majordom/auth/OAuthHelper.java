@@ -15,10 +15,11 @@ public class OAuthHelper {
 
     public static interface Callbacks {
         void onError(Exception e);
-        void onSuccess(String token);
+
+        void onSuccess(String sAuthToken);
     }
 
-    public static String sToken;
+    public static String sAuthToken;
     public static final String TOKEN = "token";
 
     public static boolean proceedRedirectURL(Activity activity, String url, Callbacks callbacks) {
@@ -36,7 +37,7 @@ public class OAuthHelper {
                 String errorDescription = parsedFragment.getQueryParameter("error_description");
                 String errorReason = parsedFragment.getQueryParameter("error_reason");
                 if (!TextUtils.isEmpty(error)) {
-                    callbacks.onError(new AuthenticationException(error+", reason : " + errorReason +"("+errorDescription+")"));
+                    callbacks.onError(new AuthenticationException(error + ", reason : " + errorReason + "(" + errorDescription + ")"));
                     return false;
                 } else {
                 }
@@ -46,10 +47,10 @@ public class OAuthHelper {
     }
 
     public static String signUrl(String url) {
-        if (url.contains("?")){
-            return url + "&token=" + sToken;
+        if (url.contains("?")) {
+            return url + "&token=" + sAuthToken;
         } else {
-            return url + "?token=" + sToken;
+            return url + "?token=" + sAuthToken;
         }
     }
 }

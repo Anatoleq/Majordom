@@ -72,6 +72,6 @@
     <string name="book_menu_elevator">Book an elevator</string>
     <string name="book_menu_parking">Book a visitor\'s parking</string>
     <string name="book_service_message">"Please describe your request here.\nWe will book a service as soon as possible."</string>
-    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_profile">My profile</string>
 
 </resources>

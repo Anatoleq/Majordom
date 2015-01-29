@@ -12,9 +12,9 @@ import java.util.List;
 /**
  * Created by Acer on 25.11.2014.
  */
-public class UserArrayProcessor implements Processor<List<User>,InputStream>{
+public class UserArrayProcessor implements Processor<List<User>, InputStream> {
 
-@Override
+    @Override
     public List<User> process(InputStream inputStream) throws Exception {
         String string = new StringProcessor().process(inputStream);
         JSONArray array = new JSONArray(string);

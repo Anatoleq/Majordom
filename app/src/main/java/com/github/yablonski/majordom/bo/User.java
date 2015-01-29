@@ -2,6 +2,7 @@ package com.github.yablonski.majordom.bo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -25,6 +26,8 @@ public class User extends JSONObjectWrapper {
             return new User[size];
         }
     };
+
+    //Log.d()
 
     public User(String jsonObject) {
         super(jsonObject);

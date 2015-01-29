@@ -25,7 +25,7 @@ public class ReportsActivity extends ActionBarActivity {
                 message = "Please write your report here.\nWe will solve it as soon as possible.";
                 break;
             case R.string.main_menu_complaints:
-                message = "Please write your complaint here.\nWe will solve it as soon as possible.";;
+                message = "Please write your complaint here.\nWe will solve it as soon as possible.";
                 break;
         }
         TextView titleReportTextView = (TextView) findViewById(R.id.titleReportTextView);

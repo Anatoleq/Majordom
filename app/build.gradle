@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.github.yablonski.majordom"
-        minSdkVersion 11
+        minSdkVersion 10
         //TODO use latest version of android - done
         targetSdkVersion 21
         versionCode 1

@@ -12,20 +12,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.News;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.image.ImageLoader;
 import com.github.yablonski.majordom.processing.NewsArrayProcessor;
-import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.NewsDataSource;
-import com.github.yablonski.majordom.source.UserDataSource;
 
 import java.util.List;
 
-
-public class NewsActivity extends ActionBarActivity implements DataManager.Callback<List<News>>{
+public class NewsActivity extends ActionBarActivity implements DataManager.Callback<List<News>> {
 
     private ArrayAdapter mAdapter;
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
@@ -108,9 +104,9 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
                     convertView.setTag(item.getId());
                     final String url = item.getImage();
 
-                        //TODO add delay and cancel old request or create limited queue
-                        //TODO create sync Map to check existing request and existing callbacks
-                        //TODO create separate thread pool for manager
+                    //TODO add delay and cancel old request or create limited queue
+                    //TODO create sync Map to check existing request and existing callbacks
+                    //TODO create separate thread pool for manager
 
                     final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
                     mImageLoader.loadAndDisplay(url, imageView);

@@ -15,7 +15,7 @@ public class MenuActivity extends ActionBarActivity {
 
     ListView listView;
 
-    private static String[] menuArray;
+    private static String[] sMenuArray;
     public static String sKey;
 
     public enum Menu {
@@ -32,6 +32,7 @@ public class MenuActivity extends ActionBarActivity {
         Menu(int label) {
             this.label = label;
         }
+
         public int getLabel() {
             return label;
         }
@@ -42,16 +43,16 @@ public class MenuActivity extends ActionBarActivity {
         setContentView(R.layout.activity_menu);
 
         final List<String> menuList = new ArrayList<String>();
-        for ( final Menu items : Menu.values() ) {
-            menuList.add( getString( items.getLabel() ) );
+        for (final Menu items : Menu.values()) {
+            menuList.add(getString(items.getLabel()));
         }
 
-        menuArray = new String[menuList.size()];
-        menuArray = menuList.toArray(menuArray);
+        sMenuArray = new String[menuList.size()];
+        sMenuArray = menuList.toArray(sMenuArray);
 
         listView = (ListView) findViewById(R.id.listView);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item,R.id.menuItemTextView, menuArray));
+        listView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item, R.id.menuItemTextView, sMenuArray));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -79,39 +80,44 @@ public class MenuActivity extends ActionBarActivity {
                         startProfileActivity();
                         break;
                 }
-                //TODO create enum's - done
             }
         });
+    }
 
-    }
     private void startBookActivity() {
-        Intent intent = new Intent(MenuActivity.this,BookActivity.class);
+        Intent intent = new Intent(MenuActivity.this, BookActivity.class);
         startActivity(intent);
     }
+
     private void startPackagesActivity() {
-        Intent intent = new Intent(MenuActivity.this,PackagesActivity.class);
+        Intent intent = new Intent(MenuActivity.this, PackagesActivity.class);
         startActivity(intent);
     }
+
     private void startReportsActivity() {
-        Intent intent = new Intent(MenuActivity.this,ReportsActivity.class);
-        intent.putExtra(sKey,R.string.main_menu_reports);
+        Intent intent = new Intent(MenuActivity.this, ReportsActivity.class);
+        intent.putExtra(sKey, R.string.main_menu_reports);
         startActivity(intent);
     }
+
     private void startComplaintsActivity() {
-        Intent intent = new Intent(MenuActivity.this,ReportsActivity.class);
-        intent.putExtra(sKey,R.string.main_menu_complaints);
+        Intent intent = new Intent(MenuActivity.this, ReportsActivity.class);
+        intent.putExtra(sKey, R.string.main_menu_complaints);
         startActivity(intent);
     }
+
     private void startLostAndFoundActivity() {
-        Intent intent = new Intent(MenuActivity.this,NewsActivity.class);
-        startActivity(intent);
-    }
-    private void startNewsActivity(){
         Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
         startActivity(intent);
     }
+
+    private void startNewsActivity() {
+        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
+        startActivity(intent);
+    }
+
     private void startProfileActivity() {
-        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
+        Intent intent = new Intent(MenuActivity.this, ProfileActivity.class);
         startActivity(intent);
     }
 }

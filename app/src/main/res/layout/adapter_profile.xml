@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dip">
+
+    <TextView
+        android:id="@+id/firstNameTextView"
+        android:text="First name"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_width="100dip"
+        android:layout_height="48dip" />
+    <TextView
+        android:id="@+id/firstNameValueTextView"
+        android:layout_width="200dip"
+        android:layout_height="48dip"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_toRightOf="@+id/firstNameTextView" />
+    <TextView
+        android:id="@+id/lastNameTextView"
+        android:text="Last name"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/firstNameTextView" />
+    <TextView
+        android:id="@+id/lastNameValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_toRightOf="@+id/lastNameTextView"
+        android:layout_below="@+id/firstNameValueTextView" />
+    <TextView
+        android:id="@+id/emailTextView"
+        android:text="e-mail"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lastNameTextView" />
+    <TextView
+        android:id="@+id/emailValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_toRightOf="@+id/emailTextView"
+        android:layout_below="@+id/lastNameValueTextView"/>
+    <TextView
+        android:id="@+id/suiteNrTextView"
+        android:text="Suite number"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailTextView" />
+    <TextView
+        android:id="@+id/suiteNrValueTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip"
+        android:layout_toRightOf="@+id/suiteNrTextView"
+        android:layout_below="@+id/emailValueTextView"/>
+
+
+</RelativeLayout>

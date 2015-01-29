@@ -13,21 +13,20 @@ import android.webkit.WebViewClient;
 
 import com.github.yablonski.majordom.auth.OAuthHelper;
 
-
 /**
  * Created by Acer on 22.11.2014.
  */
 
-public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks{
+public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private WebView mWebView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         getSupportActionBar().hide();
         mWebView = (WebView) findViewById(R.id.webView);
         mWebView.getSettings().setJavaScriptEnabled(true);
@@ -101,10 +100,11 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             Log.d(TAG, "finish " + url);
-            view.setVisibility(View.VISIBLE);
+            view.setVisibility(View.VISIBLE);//maybe need to be removed from here
             dismissProgress();
         }
     }
+
     private void dismissProgress() {
         findViewById(android.R.id.progress).setVisibility(View.GONE);
     }
