@@ -2,29 +2,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    android:paddingTop="8dip"
+    android:paddingBottom="8dip"
     tools:context="com.github.yablonski.majordom.ReportsActivity">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/line">
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="2dip"
+        android:background="#c0c0c0"
+        android:layout_above="@+id/titleReportTextView"/>
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Nothing found!!!"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Error!!!"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@android:id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
 
     <TextView android:text=""
         android:maxLines="2"
         android:singleLine="false"
         android:id="@+id/titleReportTextView"
+        android:layout_above="@+id/descriptionReportEditText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal" />
+
     <EditText
         android:id="@+id/descriptionReportEditText"
-        android:layout_below="@+id/titleReportTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:scrollHorizontally="false"
+        android:minLines="3"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/sendReportButton" />
+
     <Button
         android:id="@+id/sendReportButton"
-        android:text="Send"
-        android:layout_below="@+id/descriptionReportEditText"
-        android:layout_centerInParent="true"
+        android:text="Add a request"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onReportsClick"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

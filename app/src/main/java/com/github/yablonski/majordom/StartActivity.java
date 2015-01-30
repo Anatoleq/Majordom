@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.github.yablonski.majordom.auth.EncryptManager;
 import com.github.yablonski.majordom.auth.OAuthHelper;
@@ -60,7 +59,7 @@ public class StartActivity extends ActionBarActivity {
             prefEditor.remove(OAuthHelper.TOKEN);
         } else {
             try {
-                sToken = EncryptManager.encrypt(this, token);
+                token = EncryptManager.encrypt(this, token);
                 prefEditor.putString(OAuthHelper.TOKEN, token);
             } catch (Exception e) {
                 e.printStackTrace();

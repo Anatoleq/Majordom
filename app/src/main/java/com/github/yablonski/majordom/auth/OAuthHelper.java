@@ -1,6 +1,5 @@
 package com.github.yablonski.majordom.auth;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -22,13 +21,12 @@ public class OAuthHelper {
     public static String sAuthToken;
     public static final String TOKEN = "token";
 
-    public static boolean proceedRedirectURL(Activity activity, String url, Callbacks callbacks) {
+    public static boolean proceedRedirectURL(String url, Callbacks callbacks) {
         if (url.startsWith(Api.REDIRECT_URL)) {
-            Uri uri = Uri.parse(url); //Creates a Uri from a file - https://oauth.vk.com/blank.html -> https://oauth.vk.com/
-            String fragment = uri.getFragment(); //Gets the encoded fragment part of this URI, everything after the '#'
+            Uri uri = Uri.parse(url);
+            String fragment = uri.getFragment();
             Uri parsedFragment = Uri.parse("http://temp.com?" + fragment);
-            String accessToken = parsedFragment.getQueryParameter("access_token"); //Searches the query string for the first value with the given key and interprets it
-            // as a boolean value.
+            String accessToken = parsedFragment.getQueryParameter("access_token");
             if (!TextUtils.isEmpty(accessToken)) {
                 callbacks.onSuccess(accessToken);
                 return true;

@@ -19,7 +19,6 @@ import com.github.yablonski.majordom.auth.OAuthHelper;
 
 public class LoginActivity extends ActionBarActivity implements OAuthHelper.Callbacks {
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
     private WebView mWebView;
 
 
@@ -67,18 +66,14 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            Log.d(TAG, "page started " + url);
             showProgress();
             view.setVisibility(View.INVISIBLE);
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.d(TAG, "override " + url);
-            if (OAuthHelper.proceedRedirectURL(LoginActivity.this, url, LoginActivity.this)) {
-                Log.d(TAG, "override redirect");
+            if (OAuthHelper.proceedRedirectURL(url, LoginActivity.this)) {
                 view.setVisibility(View.INVISIBLE);
-                Log.d(TAG, "Parsing url " + url);
                 setResult(RESULT_OK);
                 finish();
                 return true;
@@ -93,14 +88,11 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
             super.onReceivedError(view, errorCode, description, failingUrl);
             view.setVisibility(View.VISIBLE);
             dismissProgress();
-            Log.d(TAG, "error " + failingUrl);
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            Log.d(TAG, "finish " + url);
-            view.setVisibility(View.VISIBLE);//maybe need to be removed from here
             dismissProgress();
         }
     }

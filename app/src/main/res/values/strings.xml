@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Majordom</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_start">Majordom</string>
     <string name="title_activity_book">Booking</string>
@@ -16,18 +15,6 @@
     <string name="title_activity_social">SocialActivity</string>
     <string name="title_activity_fragment">FragmentActivity</string>
 
-    <string-array name="headers">
-        <item>Header 1</item>
-        <item>Header 2</item>
-        <item>Header 3</item>
-        <item>Header 4</item>
-    </string-array>
-    <string-array name="content">
-        <item>Content 1</item>
-        <item>Content 2</item>
-        <item>Content 3</item>
-        <item>Content 4</item>
-    </string-array>
     <string-array name="menu">
         <item>@string/main_menu_profile</item>
         <item>@string/main_menu_booking</item>
@@ -47,23 +34,19 @@
 
     <string name="title_activity_details">DetailsActivity</string>
     <string name="title_activity_child_fragment">ChildFragmentActivity</string>
-    <string name="Status">Not login</string>
-    <string name="Role">Not assigned</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="login_url">http://melville.webatu.com/lib/loginAndroid.php</string>
     <string name="title_activity_empty">EmptyActivity</string>
     <string name="title_activity_news">News</string>
-    <string name="title_activity_image">ImageActivity</string>
     <string name="title_activity_bookservice">Book a service: </string>
     <string name="title_activity_book_parking">Book a place at visitor\'s parking</string>
     <string name="title_activity_packages">My packages</string>
-    <string name="title_activity_reports">Create a report</string>
+    <string name="title_activity_reports">My reports</string>
     <string name="title_activity_complaints">Create a Complaint</string>
     <string name="main_menu_news">News</string>
     <string name="main_menu_booking">Booking</string>
-    <string name="main_menu_packages">My Packages</string>
-    <string name="main_menu_reports">Add a report</string>
-    <string name="main_menu_complaints">Add a complaint</string>
+    <string name="main_menu_packages">My packages</string>
+    <string name="main_menu_reports">My reports</string>
+    <string name="main_menu_complaints">My complaints</string>
     <string name="main_menu_lostnfound">Lost and found</string>
     <string name="main_menu_profile">My profile</string>
     <string name="book_menu_electrician">Book an electrician</string>
@@ -72,6 +55,10 @@
     <string name="book_menu_elevator">Book an elevator</string>
     <string name="book_menu_parking">Book a visitor\'s parking</string>
     <string name="book_service_message">"Please describe your request here.\nWe will book a service as soon as possible."</string>
+    <string name="report_message">"Please write your report here.\nWe will solve it as soon as possible."</string>
+    <string name="complaint_message">"Please write your complaint here.\nWe will solve it as soon as possible."</string>
     <string name="title_activity_profile">My profile</string>
+    <string name="report_type">report</string>
+    <string name="complaint_type">complaint</string>
 
 </resources>
