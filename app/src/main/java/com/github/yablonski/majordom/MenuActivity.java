@@ -15,6 +15,8 @@ public class MenuActivity extends ActionBarActivity {
 
     private ListView mListView;
     private static String[] sMenuArray;
+
+    //TODO make uppercase
     public static String sKey;
 
     public enum Menu {
@@ -45,6 +47,7 @@ public class MenuActivity extends ActionBarActivity {
             menuList.add(getString(items.getLabel()));
         }
 
+        //TODO not static
         sMenuArray = new String[menuList.size()];
         sMenuArray = menuList.toArray(sMenuArray);
 

@@ -19,6 +19,7 @@
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <!-- TODO remove -->
     <View
         android:id="@+id/line"
         android:layout_width="fill_parent"

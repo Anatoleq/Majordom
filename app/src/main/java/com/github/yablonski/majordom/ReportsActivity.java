@@ -25,6 +25,7 @@ import java.util.List;
 
 public class ReportsActivity extends ActionBarActivity implements DataManager.Callback<List<Reports>> {
 
+    //TODO m and s
     private int mTitleId;
     public int mId;
     private String sTitle, sMessage = "", sRequest, sType, sEncodedRequest;
@@ -152,10 +153,12 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
         sEncodedRequest = getEncodedRequest(sRequest);
         HttpDataSource dataSource = getHttpDataSource();
         ReportsArrayProcessor processor = getProcessor();
+        //TODO create some helper class that will post data to server side
         update(dataSource, processor);
         text.setText("");
     }
 
+    //TODO move to utils
     public static String getEncodedRequest(String plainText) {
         try {
             return URLEncoder.encode(plainText, "UTF-8");
