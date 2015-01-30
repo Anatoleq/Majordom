@@ -2,9 +2,9 @@ package com.github.yablonski.majordom;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.github.yablonski.majordom.auth.EncryptManager;

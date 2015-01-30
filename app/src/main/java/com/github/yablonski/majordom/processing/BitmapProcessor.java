@@ -2,7 +2,9 @@ package com.github.yablonski.majordom.processing;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import com.github.yablonski.majordom.source.HttpDataSource;
+
 import java.io.InputStream;
 
 /**

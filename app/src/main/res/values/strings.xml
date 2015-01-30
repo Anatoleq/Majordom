@@ -60,5 +60,10 @@
     <string name="title_activity_profile">My profile</string>
     <string name="report_type">report</string>
     <string name="complaint_type">complaint</string>
+    <string name="electric_type">electric</string>
+    <string name="plumber_type">plumber</string>
+    <string name="elevator_type">elevator</string>
+    <string name="parking_type">parking</string>
+    <string name="moving_type">moving</string>
 
 </resources>

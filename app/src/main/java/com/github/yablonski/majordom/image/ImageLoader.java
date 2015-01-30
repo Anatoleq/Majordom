@@ -8,14 +8,6 @@ import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.github.yablonski.majordom.CoreApplication;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.os.assist.LIFOLinkedBlockingDeque;
@@ -23,6 +15,14 @@ import com.github.yablonski.majordom.processing.BitmapProcessor;
 import com.github.yablonski.majordom.processing.Processor;
 import com.github.yablonski.majordom.source.CachedHttpDataSource;
 import com.github.yablonski.majordom.source.DataSource;
+
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by Acer on 10.12.2014.

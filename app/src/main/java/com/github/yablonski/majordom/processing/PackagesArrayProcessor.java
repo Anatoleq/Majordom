@@ -1,8 +1,5 @@
 package com.github.yablonski.majordom.processing;
 
-import android.util.Log;
-
-import com.github.yablonski.majordom.bo.News;
 import com.github.yablonski.majordom.bo.Packages;
 
 import org.json.JSONArray;

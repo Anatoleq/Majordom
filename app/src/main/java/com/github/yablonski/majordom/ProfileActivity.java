@@ -54,17 +54,17 @@ public class ProfileActivity extends ActionBarActivity implements DataManager.Ca
 
     @Override
     public void onDataLoadStart() {
-        findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
-        findViewById(android.R.id.empty).setVisibility(View.GONE);
+        showProgress();
+        dismissEmpty();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onDone(List<User> data) {
 
-        findViewById(android.R.id.progress).setVisibility(View.GONE);
+        dismissProgress();
         if (data == null || data.isEmpty()) {
-            findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+            showEmpty();
         }
         ListView profileListView = (ListView) findViewById(R.id.profileListView);
         if (mAdapter == null) {
@@ -100,11 +100,27 @@ public class ProfileActivity extends ActionBarActivity implements DataManager.Ca
     @Override
     public void onError(Exception e) {
         e.printStackTrace();
-        findViewById(android.R.id.progress).setVisibility(View.GONE);
-        findViewById(android.R.id.empty).setVisibility(View.GONE);
+        dismissProgress();
+        dismissEmpty();
         TextView errorView = (TextView) findViewById(R.id.error);
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(errorView.getText() + "\n" + e.getMessage());
+    }
+
+    private void dismissProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.GONE);
+    }
+
+    private void showProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
+    }
+
+    private void showEmpty() {
+        findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+    }
+
+    private void dismissEmpty() {
+        findViewById(android.R.id.empty).setVisibility(View.GONE);
     }
 
 }

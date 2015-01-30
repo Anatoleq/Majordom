@@ -27,7 +27,7 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ImageLoader mImageLoader;
-
+    private List<News> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +68,10 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     @Override
     public void onDataLoadStart() {
         if (!mSwipeRefreshLayout.isRefreshing()) {
-            findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
+            showProgress();
         }
-        findViewById(android.R.id.empty).setVisibility(View.GONE);
+        dismissEmpty();
     }
-
-    private List<News> mData;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -81,33 +79,27 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        findViewById(android.R.id.progress).setVisibility(View.GONE);
+        dismissProgress();
         if (data == null || data.isEmpty()) {
-            findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+            showEmpty();
         }
         AbsListView listView = (AbsListView) findViewById(android.R.id.list);
 
         if (mAdapter == null) {
             mData = data;
             mAdapter = new ArrayAdapter<News>(this, R.layout.adapter_item, android.R.id.text1, data) {
-
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     if (convertView == null) {
                         convertView = View.inflate(NewsActivity.this, R.layout.adapter_item, null);
                     }
                     News item = getItem(position);
-                    TextView textView1 = (TextView) convertView.findViewById(android.R.id.text1);
-                    textView1.setText(item.getDate());
-                    TextView textView2 = (TextView) convertView.findViewById(android.R.id.text2);
-                    textView2.setText(item.getTitle());
+                    TextView newsDate = (TextView) convertView.findViewById(android.R.id.text1);
+                    newsDate.setText(item.getDate());
+                    TextView newsTitle = (TextView) convertView.findViewById(android.R.id.text2);
+                    newsTitle.setText(item.getTitle());
                     convertView.setTag(item.getId());
                     final String url = item.getImage();
-
-                    //TODO add delay and cancel old request or create limited queue
-                    //TODO create sync Map to check existing request and existing callbacks
-                    //TODO create separate thread pool for manager
-
                     final ImageView imageView = (ImageView) convertView.findViewById(android.R.id.icon);
                     mImageLoader.loadAndDisplay(url, imageView);
                     return convertView;
@@ -115,27 +107,6 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
 
             };
             listView.setAdapter(mAdapter);
-            listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(AbsListView view, int scrollState) {
-                    switch (scrollState) {
-                        case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                            mImageLoader.resume();
-                            break;
-                        case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                            mImageLoader.pause();
-                            break;
-                        case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                            mImageLoader.pause();
-                            break;
-                    }
-                }
-
-                @Override
-                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                }
-            });
         } else {
             mData.clear();
             mData.addAll(data);
@@ -146,11 +117,27 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     @Override
     public void onError(Exception e) {
         e.printStackTrace();
-        findViewById(android.R.id.progress).setVisibility(View.GONE);
-        findViewById(android.R.id.empty).setVisibility(View.GONE);
+        dismissProgress();
+        dismissEmpty();
         TextView errorView = (TextView) findViewById(R.id.error);
         errorView.setVisibility(View.VISIBLE);
         errorView.setText(errorView.getText() + "\n" + e.getMessage());
+    }
+
+    private void dismissProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.GONE);
+    }
+
+    private void showProgress() {
+        findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
+    }
+
+    private void showEmpty() {
+        findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+    }
+
+    private void dismissEmpty() {
+        findViewById(android.R.id.empty).setVisibility(View.GONE);
     }
 
 }

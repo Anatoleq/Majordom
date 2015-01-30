@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dip"
     android:paddingRight="16dip"
-    android:paddingTop="16dip"
-    android:paddingBottom="16dip"
+    android:paddingTop="8dip"
+    android:paddingBottom="8dip"
     tools:context="com.github.yablonski.majordom.PackagesActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -2,7 +2,6 @@ package com.github.yablonski.majordom.bo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import org.json.JSONObject;
 

@@ -1,10 +1,10 @@
 package com.github.yablonski.majordom.helper;
 
-import com.github.yablonski.majordom.os.AsyncTask;
 import android.os.Handler;
 
-import com.github.yablonski.majordom.source.DataSource;
+import com.github.yablonski.majordom.os.AsyncTask;
 import com.github.yablonski.majordom.processing.Processor;
+import com.github.yablonski.majordom.source.DataSource;
 
 /**
  * Created by Acer on 25.11.2014.

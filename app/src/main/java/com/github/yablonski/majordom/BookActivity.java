@@ -4,26 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BookActivity extends ActionBarActivity {
 
-    private String[] bookmenu, bookMenuArray;
+    private String[] sBookMenuArray;
     public static String sBookKey;
-    private int[] images = { R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
+    private int[] mImages = {R.drawable.bulb3, R.drawable.poor, R.drawable.elevator,
             R.drawable.parking, R.drawable.moving};
+    public List<String> bookMenuList;
+    private ListView mListView;
+    private AdapterBook adapter;
 
-    public enum BookMenu{
+    public enum BookMenu {
         ELECTRICIAN(R.string.book_menu_electrician, R.drawable.bulb3),
         PLUMBER(R.string.book_menu_plumber, R.drawable.poor),
         ELEVATOR(R.string.book_menu_elevator, R.drawable.elevator),
@@ -48,28 +45,25 @@ public class BookActivity extends ActionBarActivity {
 
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
 
-        final List<String> bookMenuList = new ArrayList<String>();
-        for ( final BookMenu items : BookMenu.values() ) {
-            bookMenuList.add( getString( items.getLabel() ) );
+        bookMenuList = new ArrayList<String>();
+        for (final BookMenu items : BookMenu.values()) {
+            bookMenuList.add(getString(items.getLabel()));
         }
 
-        bookMenuArray = new String[bookMenuList.size()];
-        bookMenuArray = bookMenuList.toArray(bookMenuArray);
+        sBookMenuArray = new String[bookMenuList.size()];
+        sBookMenuArray = bookMenuList.toArray(sBookMenuArray);
 
-        ListView mListView = (ListView) findViewById(R.id.mListView);
-        bookmenu = getResources().getStringArray(R.array.booking);
-        AdapterBook adapter = new AdapterBook(this, bookMenuArray, images);
+        mListView = (ListView) findViewById(R.id.mListView);
+        adapter = new AdapterBook(this, sBookMenuArray, mImages);
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
+                                    int position, long id) {
                 switch (position) {
                     case 0:
                         startElectrician();
@@ -90,31 +84,32 @@ public class BookActivity extends ActionBarActivity {
             }
         });
     }
-    private void startElectrician(){
+
+    private void startElectrician() {
         Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
         intent.putExtra(sBookKey, R.string.book_menu_electrician);
         startActivity(intent);
     }
 
-    private void startPlumber(){
+    private void startPlumber() {
         Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
         intent.putExtra(sBookKey, R.string.book_menu_plumber);
         startActivity(intent);
     }
 
-    private void startElevator(){
+    private void startElevator() {
         Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
         intent.putExtra(sBookKey, R.string.book_menu_elevator);
         startActivity(intent);
     }
 
-    private void startParking(){
-        Intent intent = new Intent(BookActivity.this, BookParkingActivity.class);
+    private void startParking() {
+        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
         intent.putExtra(sBookKey, R.string.book_menu_parking);
         startActivity(intent);
     }
 
-    private void startMoving(){
+    private void startMoving() {
         Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
         intent.putExtra(sBookKey, R.string.book_menu_moving);
         startActivity(intent);

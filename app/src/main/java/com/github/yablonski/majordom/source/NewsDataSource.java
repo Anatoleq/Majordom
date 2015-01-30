@@ -1,6 +1,7 @@
 package com.github.yablonski.majordom.source;
 
 import android.content.Context;
+
 import com.github.yablonski.majordom.CoreApplication;
 import com.github.yablonski.majordom.auth.OAuthHelper;
 

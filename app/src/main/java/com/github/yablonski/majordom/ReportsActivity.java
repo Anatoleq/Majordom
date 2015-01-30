@@ -3,10 +3,9 @@ package com.github.yablonski.majordom;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -26,9 +25,9 @@ import java.util.List;
 
 public class ReportsActivity extends ActionBarActivity implements DataManager.Callback<List<Reports>> {
 
-    private int titleId;
-    public int id;
-    private String title, message = "", request, type, encodedRequest;
+    private int mTitleId;
+    public int mId;
+    private String sTitle, sMessage = "", sRequest, sType, sEncodedRequest;
     private ArrayAdapter mAdapter;
     private ReportsArrayProcessor mReportsArrayProcessor = new ReportsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -38,28 +37,28 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        titleId = intent.getIntExtra(MenuActivity.sKey, id);
-        title = getString(titleId);
-        setTitle(title);
+        mTitleId = intent.getIntExtra(MenuActivity.sKey, mId);
+        sTitle = getString(mTitleId);
+        setTitle(sTitle);
         setContentView(R.layout.activity_reports);
         dismissLine();
         TextView titleReportTextView = (TextView) findViewById(R.id.titleReportTextView);
-        switch (titleId) {
+        switch (mTitleId) {
             case R.string.main_menu_reports:
-                message = getString(R.string.report_message);
-                type = getString(R.string.report_type);
+                sMessage = getString(R.string.report_message);
+                sType = getString(R.string.report_type);
                 break;
             case R.string.main_menu_complaints:
-                message = getString(R.string.complaint_message);
-                type = getString(R.string.complaint_type);
+                sMessage = getString(R.string.complaint_message);
+                sType = getString(R.string.complaint_type);
                 break;
         }
-        titleReportTextView.setText(message);
+        titleReportTextView.setText(sMessage);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();
         final ReportsArrayProcessor processor = getProcessor();
-        encodedRequest = "";
+        sEncodedRequest = "";
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -85,7 +84,7 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
     }
 
     private String getUrl() {
-        return Api.REPORTS_GET + Api.TYPE + type + Api.REQUEST + encodedRequest;
+        return Api.REPORTS_GET + Api.TYPE + sType + Api.REQUEST + sEncodedRequest;
     }
 
     @Override
@@ -130,7 +129,7 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
             listView.setAdapter(mAdapter);
             showLine();
         } else {
-            encodedRequest = "";
+            sEncodedRequest = "";
             mData.clear();
             mData.addAll(data);
             mAdapter.notifyDataSetChanged();
@@ -149,8 +148,8 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
 
     public void onReportsClick(View view) {
         EditText text = (EditText) findViewById(R.id.descriptionReportEditText);
-        request = text.getText().toString();
-        encodedRequest = getEncodedRequest(request);
+        sRequest = text.getText().toString();
+        sEncodedRequest = getEncodedRequest(sRequest);
         HttpDataSource dataSource = getHttpDataSource();
         ReportsArrayProcessor processor = getProcessor();
         update(dataSource, processor);
@@ -184,6 +183,7 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
     private void showLine() {
         findViewById(R.id.line).setVisibility(View.VISIBLE);
     }
+
     private void dismissLine() {
         findViewById(R.id.line).setVisibility(View.GONE);
     }

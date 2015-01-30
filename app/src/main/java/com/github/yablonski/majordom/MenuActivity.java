@@ -13,8 +13,7 @@ import java.util.List;
 
 public class MenuActivity extends ActionBarActivity {
 
-    ListView listView;
-
+    private ListView mListView;
     private static String[] sMenuArray;
     public static String sKey;
 
@@ -24,7 +23,6 @@ public class MenuActivity extends ActionBarActivity {
         MY_PACKAGES(R.string.main_menu_packages),
         REPORTS(R.string.main_menu_reports),
         COMPLAINTS(R.string.main_menu_complaints),
-        LOST_N_FOUND(R.string.main_menu_lostnfound),
         NEWS(R.string.main_menu_news);
 
         private int label;
@@ -50,10 +48,10 @@ public class MenuActivity extends ActionBarActivity {
         sMenuArray = new String[menuList.size()];
         sMenuArray = menuList.toArray(sMenuArray);
 
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        listView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item, R.id.menuItemTextView, sMenuArray));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView = (ListView) findViewById(R.id.listView);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        mListView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item, R.id.menuItemTextView, sMenuArray));
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Menu menuItem = Menu.values()[position];
@@ -69,9 +67,6 @@ public class MenuActivity extends ActionBarActivity {
                         break;
                     case COMPLAINTS:
                         startComplaintsActivity();
-                        break;
-                    case LOST_N_FOUND:
-                        startLostAndFoundActivity();
                         break;
                     case NEWS:
                         startNewsActivity();
@@ -103,11 +98,6 @@ public class MenuActivity extends ActionBarActivity {
     private void startComplaintsActivity() {
         Intent intent = new Intent(MenuActivity.this, ReportsActivity.class);
         intent.putExtra(sKey, R.string.main_menu_complaints);
-        startActivity(intent);
-    }
-
-    private void startLostAndFoundActivity() {
-        Intent intent = new Intent(MenuActivity.this, NewsActivity.class);
         startActivity(intent);
     }
 

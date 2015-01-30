@@ -1,7 +1,5 @@
 package com.github.yablonski.majordom.utils;
 
-import com.github.yablonski.majordom.auth.OAuthHelper;
-
 /**
  * Created by Acer on 22.11.2014.
  */

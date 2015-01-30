@@ -1,7 +1,6 @@
 package com.github.yablonski.majordom.processing;
 
 import com.github.yablonski.majordom.bo.News;
-import com.github.yablonski.majordom.bo.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

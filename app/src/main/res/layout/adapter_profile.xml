@@ -3,74 +3,92 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dip"
-    android:paddingRight="16dip"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dip">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/firstNameTextView"
-        android:text="First name"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:layout_width="100dip"
-        android:layout_height="48dip" />
+        android:text="First name:"
+        android:paddingRight="8dip"
+        android:layout_width="128dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/abc_text_size_medium_material" />
     <TextView
         android:id="@+id/firstNameValueTextView"
-        android:layout_width="200dip"
+        android:layout_width="wrap_content"
         android:layout_height="48dip"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/abc_text_size_medium_material"
         android:layout_toRightOf="@+id/firstNameTextView" />
+    <View
+        android:id="@+id/line1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/firstNameTextView"/>
     <TextView
         android:id="@+id/lastNameTextView"
-        android:text="Last name"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/firstNameTextView" />
+        android:text="Last name:"
+        android:paddingRight="8dip"
+        android:layout_width="128dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/firstNameTextView"
+        android:textSize="@dimen/abc_text_size_medium_material" />
     <TextView
         android:id="@+id/lastNameValueTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/lastNameTextView"
-        android:layout_below="@+id/firstNameValueTextView" />
+        android:layout_below="@+id/firstNameValueTextView"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+    <View
+        android:id="@+id/line2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/lastNameTextView"/>
     <TextView
         android:id="@+id/emailTextView"
-        android:text="e-mail"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/lastNameTextView" />
+        android:text="e-mail:"
+        android:paddingRight="8dip"
+        android:layout_width="128dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/lastNameTextView"
+        android:textSize="@dimen/abc_text_size_medium_material" />
     <TextView
         android:id="@+id/emailValueTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/emailTextView"
-        android:layout_below="@+id/lastNameValueTextView"/>
+        android:layout_below="@+id/lastNameValueTextView"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#c0c0c0"
+        android:layout_below="@+id/emailTextView"/>
     <TextView
         android:id="@+id/suiteNrTextView"
-        android:text="Suite number"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/emailTextView" />
+        android:text="Suite number:"
+        android:paddingRight="8dip"
+        android:layout_width="128dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
+        android:layout_below="@+id/emailTextView"
+        android:textSize="@dimen/abc_text_size_medium_material" />
     <TextView
         android:id="@+id/suiteNrValueTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip"
+        android:layout_height="48dip"
+        android:gravity="center_vertical"
         android:layout_toRightOf="@+id/suiteNrTextView"
-        android:layout_below="@+id/emailValueTextView"/>
+        android:layout_below="@+id/emailValueTextView"
+        android:textSize="@dimen/abc_text_size_medium_material"/>
 
 
 </RelativeLayout>
