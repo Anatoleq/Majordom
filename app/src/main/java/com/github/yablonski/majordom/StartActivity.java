@@ -74,7 +74,7 @@ public class StartActivity extends ActionBarActivity {
         if (!TextUtils.isEmpty(sToken))
             try {
                 sToken = EncryptManager.decrypt(this, sToken);
-                OAuthHelper.sAuthToken = sToken;
+                OAuthHelper.authToken = sToken;
             } catch (Exception e) {
                 e.printStackTrace();
                 sToken = "";

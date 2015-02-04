@@ -24,9 +24,9 @@ public class Packages extends JSONObjectWrapper {
             }
         };
 
-    public Packages(String jsonObject) {
+/*    public Packages(String jsonObject) {
             super(jsonObject);
-        }
+        }*/
 
     public Packages(JSONObject jsonObject) {
             super(jsonObject);

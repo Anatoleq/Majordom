@@ -1,5 +1,6 @@
 package com.github.yablonski.majordom.auth;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -18,17 +19,17 @@ public class OAuthHelper {
         void onSuccess(String sAuthToken);
     }
 
-    public static String sAuthToken;
+    public static String authToken;
     public static final String TOKEN = "token";
 
-    public static boolean proceedRedirectURL(String url, Callbacks callbacks) {
+    public static boolean proceedRedirectURL(Activity activity, String url, Callbacks callbacks) {
         if (url.startsWith(Api.REDIRECT_URL)) {
             Uri uri = Uri.parse(url);
             String fragment = uri.getFragment();
             Uri parsedFragment = Uri.parse("http://temp.com?" + fragment);
-            String accessToken = parsedFragment.getQueryParameter("access_token");
-            if (!TextUtils.isEmpty(accessToken)) {
-                callbacks.onSuccess(accessToken);
+            authToken = parsedFragment.getQueryParameter("access_token");
+            if (!TextUtils.isEmpty(authToken)) {
+                callbacks.onSuccess(authToken);
                 return true;
             } else {
                 String error = parsedFragment.getQueryParameter("error");
@@ -46,9 +47,9 @@ public class OAuthHelper {
 
     public static String signUrl(String url) {
         if (url.contains("?")) {
-            return url + "&token=" + sAuthToken;
+            return url + "&token=" + authToken;
         } else {
-            return url + "?token=" + sAuthToken;
+            return url + "?token=" + authToken;
         }
     }
 }

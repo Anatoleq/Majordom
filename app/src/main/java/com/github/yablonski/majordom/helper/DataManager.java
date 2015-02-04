@@ -1,6 +1,7 @@
 package com.github.yablonski.majordom.helper;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.github.yablonski.majordom.os.AsyncTask;
 import com.github.yablonski.majordom.processing.Processor;

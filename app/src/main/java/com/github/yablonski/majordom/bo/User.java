@@ -26,11 +26,10 @@ public class User extends JSONObjectWrapper {
         }
     };
 
-    //Log.d()
 
-    public User(String jsonObject) {
+    /*public User(String jsonObject) {
         super(jsonObject);
-    }
+    }*/
 
     public User(JSONObject jsonObject) {
         super(jsonObject);

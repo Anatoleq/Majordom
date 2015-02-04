@@ -16,16 +16,9 @@
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingBottom="8dip" />
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <!-- TODO remove -->
-    <View
-        android:id="@+id/line"
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:background="#c0c0c0"
-        android:layout_above="@+id/titleReportTextView"/>
 
     <TextView
         android:id="@android:id/empty"
@@ -55,9 +48,12 @@
         android:singleLine="false"
         android:id="@+id/titleReportTextView"
         android:layout_above="@+id/descriptionReportEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dip"
         android:layout_centerHorizontal="true"
+        android:background="@color/accent"
+        android:textColor="@color/white"
         android:gravity="center_horizontal" />
 
     <EditText
@@ -68,12 +64,15 @@
         android:scrollHorizontally="false"
         android:minLines="3"
         android:layout_centerHorizontal="true"
+        android:paddingBottom="8dip"
         android:layout_above="@+id/sendReportButton" />
 
     <Button
         android:id="@+id/sendReportButton"
-        android:text="Add a request"
-        android:layout_width="wrap_content"
+        android:text="Send request"
+        android:textColor="@color/white"
+        android:background="@color/accent"
+        android:layout_width="150dip"
         android:layout_height="wrap_content"
         android:onClick="onReportsClick"
         android:layout_centerHorizontal="true"

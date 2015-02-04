@@ -9,7 +9,6 @@ import org.json.JSONObject;
  * Created by Acer on 05.12.2014.
  */
 public class News extends JSONObjectWrapper {
-    private Long uid;
     private static final String DATE = "date";
     private static final String TITLE = "title";
     private static final String IMAGE = "image";
@@ -25,10 +24,6 @@ public class News extends JSONObjectWrapper {
                 return new News[size];
             }
     };
-
-    /*public News(String jsonObject) {
-            super(jsonObject);
-        }*/
 
     public News(JSONObject jsonObject) {
             super(jsonObject);

@@ -38,7 +38,6 @@ public class CoreApplication extends Application {
     @Override
     public Object getSystemService(String name) {
         if (HttpDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mHttpDataSource == null) {
                 mHttpDataSource = new HttpDataSource();
             }
@@ -46,7 +45,6 @@ public class CoreApplication extends Application {
         }
 
         if (NewsDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mNewsDataSource == null) {
                 mNewsDataSource = new NewsDataSource();
             }
@@ -54,7 +52,6 @@ public class CoreApplication extends Application {
         }
 
         if (PackagesDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mPackagesDataSource == null) {
                 mPackagesDataSource = new PackagesDataSource();
             }
@@ -62,7 +59,6 @@ public class CoreApplication extends Application {
         }
 
         if (ReportsDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mReportsDataSource == null) {
                 mReportsDataSource = new ReportsDataSource();
             }
@@ -70,7 +66,6 @@ public class CoreApplication extends Application {
         }
 
         if (UserDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mUserDataSource == null) {
                 mUserDataSource = new UserDataSource();
             }
@@ -78,7 +73,6 @@ public class CoreApplication extends Application {
         }
 
         if (CachedHttpDataSource.KEY.equals(name)) {
-            //for android kitkat +
             if (mCachedHttpDataSource == null) {
                 mCachedHttpDataSource = new CachedHttpDataSource(this);
             }
@@ -86,7 +80,6 @@ public class CoreApplication extends Application {
         }
 
         if (ImageLoader.KEY.equals(name)) {
-            //for android kitkat +
             if (mImageLoader == null) {
                 mImageLoader = new ImageLoader(this);
             }

@@ -71,7 +71,7 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (OAuthHelper.proceedRedirectURL(url, LoginActivity.this)) {
+            if (OAuthHelper.proceedRedirectURL(LoginActivity.this, url, LoginActivity.this)) {
                 view.setVisibility(View.INVISIBLE);
                 setResult(RESULT_OK);
                 finish();
@@ -92,6 +92,7 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            view.setVisibility(view.VISIBLE);
             dismissProgress();
         }
     }

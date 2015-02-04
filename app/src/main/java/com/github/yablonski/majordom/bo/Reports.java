@@ -9,11 +9,9 @@ import org.json.JSONObject;
  * Created by Acer on 29.01.2015.
  */
 public class Reports extends JSONObjectWrapper {
-    private Long uid;
     private static final String DATE = "order_date";
     private static final String MESSAGE = "message";
     private static final String ID = "id";
-
 
     public static final Parcelable.Creator<Reports> CREATOR
             = new Parcelable.Creator<Reports>() {
