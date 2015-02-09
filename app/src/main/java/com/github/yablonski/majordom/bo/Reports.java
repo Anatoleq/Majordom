@@ -18,6 +18,7 @@ public class Reports extends JSONObjectWrapper {
         public Reports createFromParcel(Parcel in) {
             return new Reports(in);
         }
+
         public Reports[] newArray(int size) {
             return new Reports[size];
         }

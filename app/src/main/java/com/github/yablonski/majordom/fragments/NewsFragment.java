@@ -1,18 +1,21 @@
-package com.github.yablonski.majordom;
+package com.github.yablonski.majordom.fragments;
 
 import android.annotation.TargetApi;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.yablonski.majordom.Api;
+import com.github.yablonski.majordom.R;
 import com.github.yablonski.majordom.bo.News;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.image.ImageLoader;
@@ -22,28 +25,47 @@ import com.github.yablonski.majordom.source.NewsDataSource;
 
 import java.util.List;
 
-public class NewsActivity extends ActionBarActivity implements DataManager.Callback<List<News>> {
+public class NewsFragment extends Fragment implements DataManager.Callback<List<News>> {
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayAdapter mAdapter;
     private NewsArrayProcessor mNewsArrayProcessor = new NewsArrayProcessor();
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private AbsListView mListView;
+    private TextView mError;
+    private TextView mEmpty;
+    private ProgressBar mProgressBar;
     private ImageLoader mImageLoader;
     private List<News> mData;
+    private static final int KEY = 3;
+
+    public static NewsFragment newInstance() {
+        NewsFragment fragment = new NewsFragment();
+        return fragment;
+    }
+
+    public NewsFragment() {
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE) {
-            finish();
-            return;
-        }
-        setContentView(R.layout.activity_news);
-        mImageLoader = ImageLoader.get(NewsActivity.this);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_news, container, false);
+        mImageLoader = ImageLoader.get(getActivity().getApplicationContext());
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mProgressBar = (ProgressBar) view.findViewById(android.R.id.progress);
+        mEmpty = (TextView) view.findViewById(android.R.id.empty);
+        mError = (TextView) view.findViewById(R.id.error);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         final HttpDataSource dataSource = getHttpDataSource();
         final NewsArrayProcessor processor = getProcessor();
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
             @Override
             public void onRefresh() {
                 update(dataSource, processor);
@@ -57,11 +79,11 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     }
 
     private HttpDataSource getHttpDataSource() {
-        return NewsDataSource.get(NewsActivity.this);
+        return new NewsDataSource();
     }
 
     private void update(HttpDataSource dataSource, NewsArrayProcessor processor) {
-        DataManager.loadData(NewsActivity.this,
+        DataManager.loadData(this,
                 getUrl(),
                 dataSource,
                 processor);
@@ -79,6 +101,7 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
         dismissEmpty();
     }
 
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onDone(List<News> data) {
@@ -89,15 +112,14 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
         if (data == null || data.isEmpty()) {
             showEmpty();
         }
-        AbsListView listView = (AbsListView) findViewById(android.R.id.list);
 
         if (mAdapter == null) {
             mData = data;
-            mAdapter = new ArrayAdapter<News>(this, R.layout.adapter_item, android.R.id.text1, data) {
+            mAdapter = new ArrayAdapter<News>(getActivity().getApplicationContext(), R.layout.adapter_item, android.R.id.text1, data) {
                 @Override
                 public View getView(int position, View convertView, ViewGroup parent) {
                     if (convertView == null) {
-                        convertView = View.inflate(NewsActivity.this, R.layout.adapter_item, null);
+                        convertView = View.inflate(getActivity().getApplicationContext(), R.layout.adapter_item, null);
                     }
                     News item = getItem(position);
                     TextView newsDate = (TextView) convertView.findViewById(android.R.id.text1);
@@ -110,9 +132,8 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
                     mImageLoader.loadAndDisplay(url, imageView);
                     return convertView;
                 }
-
             };
-            listView.setAdapter(mAdapter);
+            mListView.setAdapter(mAdapter);
         } else {
             mData.clear();
             mData.addAll(data);
@@ -123,27 +144,32 @@ public class NewsActivity extends ActionBarActivity implements DataManager.Callb
     @Override
     public void onError(Exception e) {
         e.printStackTrace();
-        dismissProgress();
-        dismissEmpty();
-        TextView errorView = (TextView) findViewById(R.id.error);
-        errorView.setVisibility(View.VISIBLE);
-        errorView.setText(errorView.getText() + "\n" + e.getMessage());
+        mProgressBar.setVisibility(View.GONE);
+        mEmpty.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+        mError.setText(mError.getText() + "\n" + e.getMessage());
     }
 
+    /*@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        ((MainActivity) activity).onSectionAttached(KEY);
+    }*/
+
     private void dismissProgress() {
-        findViewById(android.R.id.progress).setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     private void showProgress() {
-        findViewById(android.R.id.progress).setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     private void showEmpty() {
-        findViewById(android.R.id.empty).setVisibility(View.VISIBLE);
+        mEmpty.setVisibility(View.VISIBLE);
     }
 
     private void dismissEmpty() {
-        findViewById(android.R.id.empty).setVisibility(View.GONE);
+        mEmpty.setVisibility(View.GONE);
     }
 
 }

@@ -65,5 +65,6 @@
     <string name="elevator_type">elevator</string>
     <string name="parking_type">parking</string>
     <string name="moving_type">moving</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -9,7 +9,6 @@ import org.json.JSONObject;
  * Created by Acer on 04.11.2014.
  */
 public class User extends JSONObjectWrapper {
-    private Long uid;
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
     private static final String EMAIL = "email";
@@ -26,10 +25,6 @@ public class User extends JSONObjectWrapper {
         }
     };
 
-
-    /*public User(String jsonObject) {
-        super(jsonObject);
-    }*/
 
     public User(JSONObject jsonObject) {
         super(jsonObject);

@@ -2,11 +2,11 @@ package com.github.yablonski.majordom;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -20,14 +20,11 @@ import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.processing.ReportsArrayProcessor;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.ReportsDataSource;
-import com.github.yablonski.majordom.utils.HttpUtils;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
 
     private int mTitleId;
     public int mId;
-    private String mTitle, mMessage = "", mRequest, mType, mEncodedRequest;
+    private String mTitle, mMessage = "", mRequest, mType;
     private ArrayAdapter mAdapter;
     private ReportsArrayProcessor mReportsArrayProcessor = new ReportsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -46,8 +43,13 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
         Intent intent = getIntent();
-        mTitleId = intent.getIntExtra(MenuActivity.sKey, mId);
+        mTitleId = intent.getIntExtra(MenuActivity.KEY, mId);
         mTitle = getString(mTitleId);
         setTitle(mTitle);
         setContentView(R.layout.activity_reports);
@@ -67,7 +69,6 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();
         final ReportsArrayProcessor processor = getProcessor();
-        mEncodedRequest = "";
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -135,15 +136,16 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
                     Reports item = getItem(position);
                     TextView reportDate = (TextView) convertView.findViewById(android.R.id.text1);
                     reportDate.setText(item.getDate());
+                    reportDate.setTextColor(getResources().getColor(R.color.secondary_text));
                     TextView reportMessage = (TextView) convertView.findViewById(android.R.id.text2);
                     reportMessage.setText(item.getMessage());
+                    reportMessage.setTextColor(getResources().getColor(R.color.primary_text));
                     return convertView;
                 }
 
             };
             listView.setAdapter(mAdapter);
         } else {
-            mEncodedRequest = "";
             mData.clear();
             mData.addAll(data);
             mAdapter.notifyDataSetChanged();
@@ -163,13 +165,11 @@ public class ReportsActivity extends ActionBarActivity implements DataManager.Ca
     public void onReportsClick(View view) {
         EditText text = (EditText) findViewById(R.id.descriptionReportEditText);
         mRequest = text.getText().toString();
-        mEncodedRequest = HttpUtils.getEncodedRequest(mRequest);
         mNameValuePair = new ArrayList<NameValuePair>(3);
         mNameValuePair.add(new BasicNameValuePair("type", mType));
         mNameValuePair.add(new BasicNameValuePair("message", mRequest));
         mNameValuePair.add(new BasicNameValuePair("token", OAuthHelper.authToken));
         mPostParams = URLEncodedUtils.format(mNameValuePair, "UTF-8");
-//        Log.d("params ", "params " + mPostParams);
         HttpDataSource dataSource = getPostHttpDataSource();
         ReportsArrayProcessor processor = getProcessor();
         update(dataSource, processor);

@@ -20,7 +20,6 @@ public class LoginActivity extends ActionBarActivity implements OAuthHelper.Call
 
     private WebView mWebView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

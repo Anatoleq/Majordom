@@ -3,6 +3,7 @@ package com.github.yablonski.majordom.os;
 /**
  * Created by Acer on 25.11.2014.
  */
+
 import android.os.Handler;
 
 import com.github.yablonski.majordom.os.assist.LIFOLinkedBlockingDeque;

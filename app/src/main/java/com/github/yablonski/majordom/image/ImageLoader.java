@@ -30,8 +30,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ImageLoader {
 
     public static final String KEY = "ImageLoader";
-    //TODO generate max memory based on device specification
-    public static final int MAX_SIZE = 1 * 1024 * 1024;
+
+    private static final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+    public static final int MAX_SIZE = maxMemory / 8;
 
     private AtomicBoolean isPause = new AtomicBoolean(false);
 
@@ -42,16 +44,15 @@ public class ImageLoader {
     private class ComparableRunnable implements Runnable {
 
         private Handler mHandler;
-
         private DataManager.Callback<Bitmap> mCallback;
-        private String mS;
+        private String mString;
         private DataSource<InputStream, String> mDataSource;
         private Processor<Bitmap, InputStream> mProcessor;
 
-        public ComparableRunnable(Handler handler, DataManager.Callback<Bitmap> callback, String s, DataSource<InputStream, String> dataSource, Processor<Bitmap, InputStream> processor) {
+        public ComparableRunnable(Handler handler, DataManager.Callback<Bitmap> callback, String string, DataSource<InputStream, String> dataSource, Processor<Bitmap, InputStream> processor) {
             mHandler = handler;
             this.mCallback = callback;
-            this.mS = s;
+            this.mString = string;
             this.mDataSource = dataSource;
             this.mProcessor = processor;
         }
@@ -59,7 +60,7 @@ public class ImageLoader {
         @Override
         public void run() {
             try {
-                InputStream result = mDataSource.getResult(mS);
+                InputStream result = mDataSource.getResult(mString);
                 final Bitmap bitmap = mProcessor.process(result);
                 mHandler.post(new Runnable() {
                     @Override
@@ -86,8 +87,8 @@ public class ImageLoader {
 
         @Override
         protected int sizeOf(String key, Bitmap value) {
-            //TODO check correct calculation of bitmap size
-            return (value.getWidth() * value.getHeight())*32 + key.length();
+            int numBytesByRow = value.getRowBytes() * value.getHeight();
+            return (numBytesByRow + key.length());
         }
     };
 
@@ -95,7 +96,6 @@ public class ImageLoader {
         this.mContext = context;
         this.mDataSource = dataSource;
         this.mProcessor = processor;
-        //TODO can be customizable
         this.mLoader = new DataManager.Loader<Bitmap, InputStream, String>() {
 
             private ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0, TimeUnit.MILLISECONDS,
@@ -151,8 +151,6 @@ public class ImageLoader {
             return;
         }
         if (!TextUtils.isEmpty(url)) {
-            //TODO create sync Map to check existing request and existing callbacks
-            //TODO add delay and cancel old request or create limited queue
             DataManager.loadData(new DataManager.Callback<Bitmap>() {
                 @Override
                 public void onDataLoadStart() {

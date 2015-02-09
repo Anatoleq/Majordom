@@ -9,19 +9,22 @@
         android:layout_width="104dip"
         android:layout_height="48dip"
         android:paddingRight="8dip"
+        android:textColor="@color/primary_text"
         android:textSize="@dimen/abc_text_size_medium_material"/>
     <TextView
         android:id="@+id/incomeTextView"
         android:paddingRight="8dip"
         android:layout_width="128dip"
         android:layout_height="48dip"
+        android:textColor="@color/secondary_text"
         android:layout_toRightOf="@+id/senderTextView"
-        android:textSize="@dimen/abc_text_size_medium_material"/>
+        android:textSize="14sp"/>
     <TextView
         android:id="@+id/receivedTextView"
         android:layout_width="128dip"
         android:layout_height="48dip"
+        android:textColor="@color/secondary_text"
         android:layout_toRightOf="@+id/incomeTextView"
-        android:textSize="@dimen/abc_text_size_medium_material"/>
+        android:textSize="14sp"/>
 
 </RelativeLayout>

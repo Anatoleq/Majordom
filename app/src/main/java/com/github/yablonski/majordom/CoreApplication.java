@@ -90,7 +90,7 @@ public class CoreApplication extends Application {
     }
 
     public static <T> T get(Context context, String key) {
-        if (context == null || key == null){
+        if (context == null || key == null) {
             throw new IllegalArgumentException("Context and key must not be null");
         }
         T systemService = (T) context.getSystemService(key);

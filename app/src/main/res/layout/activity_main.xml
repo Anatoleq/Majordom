@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="8dip"
+    android:paddingTop="8dip"
+    android:orientation="horizontal">
+    <fragment
+        android:id="@+id/menu"
+        android:name="com.github.yablonski.majordom.fragments.MenuFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </fragment>
+
+</LinearLayout>

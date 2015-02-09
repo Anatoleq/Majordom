@@ -14,10 +14,9 @@ import java.util.List;
 public class MenuActivity extends ActionBarActivity {
 
     private ListView mListView;
-    private static String[] sMenuArray;
+    private String[] menuArray;
 
-    //TODO make uppercase
-    public static String sKey;
+    public static String KEY;
 
     public enum Menu {
         MY_PROFILE(R.string.main_menu_profile),
@@ -47,13 +46,12 @@ public class MenuActivity extends ActionBarActivity {
             menuList.add(getString(items.getLabel()));
         }
 
-        //TODO not static
-        sMenuArray = new String[menuList.size()];
-        sMenuArray = menuList.toArray(sMenuArray);
+        menuArray = new String[menuList.size()];
+        menuArray = menuList.toArray(menuArray);
 
         mListView = (ListView) findViewById(R.id.listView);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        mListView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item, R.id.menuItemTextView, sMenuArray));
+        mListView.setAdapter(new ArrayAdapter<>(this, R.layout.adapter_menu_item, R.id.menuItemTextView, menuArray));
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
@@ -94,13 +92,13 @@ public class MenuActivity extends ActionBarActivity {
 
     private void startReportsActivity() {
         Intent intent = new Intent(MenuActivity.this, ReportsActivity.class);
-        intent.putExtra(sKey, R.string.main_menu_reports);
+        intent.putExtra(KEY, R.string.main_menu_reports);
         startActivity(intent);
     }
 
     private void startComplaintsActivity() {
         Intent intent = new Intent(MenuActivity.this, ReportsActivity.class);
-        intent.putExtra(sKey, R.string.main_menu_complaints);
+        intent.putExtra(KEY, R.string.main_menu_complaints);
         startActivity(intent);
     }
 

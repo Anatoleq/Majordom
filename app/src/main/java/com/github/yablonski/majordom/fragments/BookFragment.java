@@ -1,22 +1,27 @@
-package com.github.yablonski.majordom;
+package com.github.yablonski.majordom.fragments;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.github.yablonski.majordom.BookMenuActivity;
+import com.github.yablonski.majordom.R;
 import com.github.yablonski.majordom.adapters.BookAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookActivity extends ActionBarActivity {
+/**
+ * Created by Acer on 08.02.2015.
+ */
+public class BookFragment extends Fragment {
 
     private String[] mBookMenuArray;
-    public static String BOOKKEY;
     private int[] mDrawables;
     private List<String> mBookMenuList;
     private ListView mListView;
@@ -46,15 +51,25 @@ public class BookActivity extends ActionBarActivity {
         }
     }
 
+    public static BookFragment newInstance() {
+        BookFragment fragment = new BookFragment();
+        return fragment;
+    }
+
+    public BookFragment() {
+    }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE) {
-            finish();
-            return;
-        }
-        setContentView(R.layout.activity_book);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_book, container, false);
+        mListView = (ListView) view.findViewById(R.id.mListView);
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         int size = 0;
         mBookMenuList = new ArrayList<String>();
         for (final BookMenu items : BookMenu.values()) {
@@ -71,61 +86,39 @@ public class BookActivity extends ActionBarActivity {
         mBookMenuArray = new String[mBookMenuList.size()];
         mBookMenuArray = mBookMenuList.toArray(mBookMenuArray);
 
-        mListView = (ListView) findViewById(R.id.mListView);
-        mAdapter = new BookAdapter(this, mBookMenuArray, mDrawables);
+        mAdapter = new BookAdapter(getActivity(), mBookMenuArray, mDrawables);
         mListView.setAdapter(mAdapter);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 BookMenu menuItem = BookMenu.values()[position];
                 switch (menuItem) {
                     case ELECTRICIAN:
-                        startElectrician();
+                        startBookMenu(R.string.electric_type);
                         break;
                     case PLUMBER:
-                        startPlumber();
+                        startBookMenu(R.string.plumber_type);
                         break;
                     case ELEVATOR:
-                        startElevator();
+                        startBookMenu(R.string.elevator_type);
                         break;
                     case PARKING:
-                        startParking();
+                        startBookMenu(R.string.parking_type);
                         break;
                     case MOVING:
-                        startMoving();
+                        startBookMenu(R.string.moving_type);
                         break;
                 }
             }
         });
     }
 
-    private void startElectrician() {
-        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
-        intent.putExtra(BOOKKEY, R.string.book_menu_electrician);
+    private void startBookMenu(int type) {
+        Intent intent = new Intent();
+        intent.setClass(getActivity(), BookMenuActivity.class);
+        intent.putExtra("type", type);
         startActivity(intent);
     }
 
-    private void startPlumber() {
-        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
-        intent.putExtra(BOOKKEY, R.string.book_menu_plumber);
-        startActivity(intent);
-    }
-
-    private void startElevator() {
-        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
-        intent.putExtra(BOOKKEY, R.string.book_menu_elevator);
-        startActivity(intent);
-    }
-
-    private void startParking() {
-        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
-        intent.putExtra(BOOKKEY, R.string.book_menu_parking);
-        startActivity(intent);
-    }
-
-    private void startMoving() {
-        Intent intent = new Intent(BookActivity.this, BookServiceActivity.class);
-        intent.putExtra(BOOKKEY, R.string.book_menu_moving);
-        startActivity(intent);
-    }
 }

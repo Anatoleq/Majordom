@@ -12,13 +12,12 @@ import java.util.List;
 /**
  * Created by Acer on 12.01.2015.
  */
-public class PackagesArrayProcessor implements Processor<List<Packages>,InputStream> {
+public class PackagesArrayProcessor implements Processor<List<Packages>, InputStream> {
 
     @Override
     public List<Packages> process(InputStream inputStream) throws Exception {
         String string = new StringProcessor().process(inputStream);
         JSONArray array = new JSONArray(string);
-        //TODO wrapper for array
         List<Packages> packagesArray = new ArrayList<Packages>(array.length());
         for (int i = 0; i < array.length(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);

@@ -1,6 +1,7 @@
 package com.github.yablonski.majordom.source;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.github.yablonski.majordom.CoreApplication;
 import com.github.yablonski.majordom.auth.OAuthHelper;
@@ -21,6 +22,7 @@ public class UserDataSource extends HttpDataSource {
     @Override
     public InputStream getResult(String p) throws Exception {
         String signUrl = OAuthHelper.signUrl(p);
+        Log.d("UDS", signUrl);
         return super.getResult(signUrl);
     }
 }

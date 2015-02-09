@@ -18,20 +18,21 @@ public class News extends JSONObjectWrapper {
     public static final Parcelable.Creator<News> CREATOR
             = new Parcelable.Creator<News>() {
         public News createFromParcel(Parcel in) {
-                return new News(in);
-            }
+            return new News(in);
+        }
+
         public News[] newArray(int size) {
-                return new News[size];
-            }
+            return new News[size];
+        }
     };
 
     public News(JSONObject jsonObject) {
-            super(jsonObject);
-        }
+        super(jsonObject);
+    }
 
     protected News(Parcel in) {
-            super(in);
-        }
+        super(in);
+    }
 
     public String getDate() {
         return getString(DATE);

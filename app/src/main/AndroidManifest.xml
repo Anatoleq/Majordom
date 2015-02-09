@@ -21,7 +21,6 @@
             android:label="@string/title_activity_start" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,10 +45,6 @@
             android:label="@string/title_activity_bookservice" >
         </activity>
         <activity
-            android:name=".BookParkingActivity"
-            android:label="@string/title_activity_book_parking" >
-        </activity>
-        <activity
             android:name=".PackagesActivity"
             android:label="@string/title_activity_packages" >
         </activity>
@@ -60,6 +55,10 @@
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
+        </activity>
+        <activity
+            android:name=".BookMenuActivity"
+            android:label="@string/title_activity_book" >
         </activity>
     </application>
 

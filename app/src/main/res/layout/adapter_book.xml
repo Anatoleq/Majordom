@@ -4,11 +4,13 @@
     android:layout_height="wrap_content">
     <ImageView
         android:id="@android:id/icon"
-        android:layout_width="54dip"
-        android:layout_height="54dip"
+        android:scaleType="centerCrop"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
         android:paddingRight="8dip"
+        android:paddingTop="4dip"
         android:paddingBottom="4dip"
-        android:paddingTop="4dip"/>
+        android:paddingLeft="8dip"/>
 
     <TextView
         android:id="@android:id/text1"

@@ -76,7 +76,7 @@
         android:background="@color/accent"
         android:layout_width="150dip"
         android:layout_height="wrap_content"
-        android:onClick="onReportsClick"
+        android:onClick="onClick"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 

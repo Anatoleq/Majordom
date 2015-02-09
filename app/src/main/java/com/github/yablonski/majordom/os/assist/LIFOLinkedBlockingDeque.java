@@ -3,6 +3,7 @@ package com.github.yablonski.majordom.os.assist;
 /**
  * Created by Acer on 25.11.2014.
  */
+
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
@@ -21,14 +22,10 @@ public class LIFOLinkedBlockingDeque<T> extends LinkedBlockingDeque<T> {
      * available. When using a capacity-restricted deque, this method is generally preferable to the {@link #addFirst
      * addFirst} method, which can fail to insert an element only by throwing an exception.
      *
-     * @param e
-     *            the element to add
-     * @throws ClassCastException
-     *             {@inheritDoc}
-     * @throws NullPointerException
-     *             if the specified element is null
-     * @throws IllegalArgumentException
-     *             {@inheritDoc}
+     * @param e the element to add
+     * @throws ClassCastException       {@inheritDoc}
+     * @throws NullPointerException     if the specified element is null
+     * @throws IllegalArgumentException {@inheritDoc}
      */
     @Override
     public boolean offer(T e) {
@@ -40,8 +37,7 @@ public class LIFOLinkedBlockingDeque<T> extends LinkedBlockingDeque<T> {
      * in that it throws an exception if this deque is empty.
      *
      * @return the head of this deque
-     * @throws java.util.NoSuchElementException
-     *             if this deque is empty
+     * @throws java.util.NoSuchElementException if this deque is empty
      */
     @Override
     public T remove() {

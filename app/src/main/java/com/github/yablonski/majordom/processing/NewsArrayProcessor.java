@@ -18,7 +18,6 @@ public class NewsArrayProcessor implements Processor<List<News>, InputStream> {
     public List<News> process(InputStream inputStream) throws Exception {
         String string = new StringProcessor().process(inputStream);
         JSONArray array = new JSONArray(string);
-        //TODO wrapper for array
         List<News> newsArray = new ArrayList<News>(array.length());
         for (int i = 0; i < array.length(); i++) {
             JSONObject jsonObject = array.getJSONObject(i);

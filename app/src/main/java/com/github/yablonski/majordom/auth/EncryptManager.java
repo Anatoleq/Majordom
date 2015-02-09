@@ -15,12 +15,13 @@ import javax.crypto.spec.DESKeySpec;
 public class EncryptManager {
     public static final String ENCODING = "UTF8";
     public static final String DES = "DES";
-
+    private static String sSourceKey;
+    private static byte[] sBytesKey;
 
     public static String encrypt(final Context context, final String value) throws Exception {
-        String sourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        byte[] bytesKey = sourceKey.getBytes(ENCODING);
-        final DESKeySpec keySpec = new DESKeySpec(bytesKey);
+        sSourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        sBytesKey = sSourceKey.getBytes(ENCODING);
+        final DESKeySpec keySpec = new DESKeySpec(sBytesKey);
         final SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
         final SecretKey key = keyFactory.generateSecret(keySpec);
         final byte[] text = value.getBytes(ENCODING);
@@ -31,9 +32,9 @@ public class EncryptManager {
     }
 
     public static String decrypt(final Context context, final String value) throws Exception {
-        String sourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        byte[] bytesKey = sourceKey.getBytes(ENCODING);
-        final DESKeySpec keySpec = new DESKeySpec(bytesKey);
+        sSourceKey = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        sBytesKey = sSourceKey.getBytes(ENCODING);
+        final DESKeySpec keySpec = new DESKeySpec(sBytesKey);
         final SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
         final SecretKey key = keyFactory.generateSecret(keySpec);
         final byte[] encrypedBytes = Base64.decode(value, Base64.DEFAULT);

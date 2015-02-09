@@ -3,7 +3,6 @@ package com.github.yablonski.majordom.source;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.github.yablonski.majordom.Api;
 import com.github.yablonski.majordom.CoreApplication;
@@ -25,7 +24,6 @@ import java.nio.charset.Charset;
 public class HttpDataSource implements DataSource<InputStream, String> {
 
     public static final String KEY = "HttpDataSource";
-    public static final String TAG = "HttpDS";
 
     public static HttpDataSource get(Context context) {
         return CoreApplication.get(context, KEY);
@@ -33,18 +31,16 @@ public class HttpDataSource implements DataSource<InputStream, String> {
 
     @Override
     public InputStream getResult(String p) throws Exception {
-        //Log.d(TAG, "url " + p);
         URI uri = new URI(p);
         Uri parsedFragment = Uri.parse(p);
         String message = parsedFragment.getQueryParameter("message");
-        String params = uri.getQuery();
-//        Log.d(TAG, "query " + params);
-//        Log.d(TAG, "message " + message);
         if (!TextUtils.isEmpty(message)) {
-//        Log.d(TAG, "url post " + uri);
+            String params = uri.getQuery();
+            String path = uri.getPath();
+            String cleanUrl = Api.BASE_PATH + path;
             byte[] postData = params.getBytes(Charset.forName("UTF-8"));
             int postDataLength = postData.length;
-            URL url = new URL(Api.REPORTS_GET);
+            URL url = new URL(cleanUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(15000);
             connection.setDoOutput(true);
@@ -61,7 +57,6 @@ public class HttpDataSource implements DataSource<InputStream, String> {
             writer.close();
             openStream.close();
             connection.connect();
-            Log.d(TAG, "url " + url);
             return connection.getInputStream();
         } else {
             URL url = new URL(p);

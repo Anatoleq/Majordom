@@ -2,6 +2,7 @@ package com.github.yablonski.majordom;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,60 +14,69 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.yablonski.majordom.auth.OAuthHelper;
 import com.github.yablonski.majordom.bo.Reports;
 import com.github.yablonski.majordom.helper.DataManager;
 import com.github.yablonski.majordom.processing.ReportsArrayProcessor;
 import com.github.yablonski.majordom.source.HttpDataSource;
 import com.github.yablonski.majordom.source.ReportsDataSource;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookServiceActivity extends ActionBarActivity implements DataManager.Callback<List<Reports>> {
 
     private int mTitleId;
     public int mId;
-    private String sTitle, sMessage, sRequest, sType, sEncodedRequest;
+    private String mTitle, mMessage, mRequest, mType;
     private ArrayAdapter mAdapter;
     private ReportsArrayProcessor mReportsArrayProcessor = new ReportsArrayProcessor();
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private List<Reports> mData;
+    private List<NameValuePair> mNameValuePair;
+    private String mPostParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE) {
+            finish();
+            return;
+        }
         Intent intent = getIntent();
-        mTitleId = intent.getIntExtra(BookActivity.sBookKey, mId);
-        sTitle = getString(mTitleId);
-        setTitle(sTitle);
+        mTitleId = intent.getIntExtra(BookActivity.BOOKKEY, mId);
+        mTitle = getString(mTitleId);
+        setTitle(mTitle);
         setContentView(R.layout.activity_reports);
-        dismissLine();
-        sMessage = getString(R.string.book_service_message);
+        mMessage = getString(R.string.book_service_message);
         TextView titleServiceTextView = (TextView) findViewById(R.id.titleReportTextView);
+        titleServiceTextView.setText(mMessage);
         switch (mTitleId) {
             case R.string.book_menu_electrician:
-                sType = getString(R.string.electric_type);
+                mType = getString(R.string.electric_type);
                 break;
             case R.string.book_menu_plumber:
-                sType = getString(R.string.plumber_type);
+                mType = getString(R.string.plumber_type);
                 break;
             case R.string.book_menu_elevator:
-                sType = getString(R.string.elevator_type);
+                mType = getString(R.string.elevator_type);
                 break;
             case R.string.book_menu_parking:
-                sType = getString(R.string.complaint_type);
+                mType = getString(R.string.complaint_type);
                 break;
             case R.string.book_menu_moving:
-                sType = getString(R.string.moving_type);
+                mType = getString(R.string.moving_type);
                 break;
         }
-        titleServiceTextView.setText(sMessage);
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         final HttpDataSource dataSource = getHttpDataSource();
         final ReportsArrayProcessor processor = getProcessor();
-        sEncodedRequest = "";
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -92,7 +102,10 @@ public class BookServiceActivity extends ActionBarActivity implements DataManage
     }
 
     private String getUrl() {
-        return Api.REPORTS_GET + Api.TYPE + sType + Api.REQUEST + sEncodedRequest;
+        if (mPostParams != null)
+            return Api.REPORTS_GET + "?" + mPostParams;
+        else
+            return Api.REPORTS_GET + Api.TYPE + mType;
     }
 
     @Override
@@ -112,7 +125,6 @@ public class BookServiceActivity extends ActionBarActivity implements DataManage
         dismissProgress();
         if (data == null || data.isEmpty()) {
             showEmpty();
-            dismissLine();
         }
         AbsListView listView = (AbsListView) findViewById(android.R.id.list);
 
@@ -135,9 +147,7 @@ public class BookServiceActivity extends ActionBarActivity implements DataManage
 
             };
             listView.setAdapter(mAdapter);
-            showLine();
         } else {
-            sEncodedRequest = "";
             mData.clear();
             mData.addAll(data);
             mAdapter.notifyDataSetChanged();
@@ -156,20 +166,16 @@ public class BookServiceActivity extends ActionBarActivity implements DataManage
 
     public void onReportsClick(View view) {
         EditText text = (EditText) findViewById(R.id.descriptionReportEditText);
-        sRequest = text.getText().toString();
-        sEncodedRequest = getEncodedRequest(sRequest);
+        mRequest = text.getText().toString();
+        mNameValuePair = new ArrayList<NameValuePair>(3);
+        mNameValuePair.add(new BasicNameValuePair("type", mType));
+        mNameValuePair.add(new BasicNameValuePair("message", mRequest));
+        mNameValuePair.add(new BasicNameValuePair("token", OAuthHelper.authToken));
+        mPostParams = URLEncodedUtils.format(mNameValuePair, "UTF-8");
         HttpDataSource dataSource = getHttpDataSource();
         ReportsArrayProcessor processor = getProcessor();
         update(dataSource, processor);
         text.setText("");
-    }
-
-    public static String getEncodedRequest(String plainText) {
-        try {
-            return URLEncoder.encode(plainText, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            return plainText;
-        }
     }
 
     private void dismissProgress() {
@@ -187,13 +193,4 @@ public class BookServiceActivity extends ActionBarActivity implements DataManage
     private void dismissEmpty() {
         findViewById(android.R.id.empty).setVisibility(View.GONE);
     }
-
-    private void showLine() {
-        findViewById(R.id.line).setVisibility(View.VISIBLE);
-    }
-
-    private void dismissLine() {
-        findViewById(R.id.line).setVisibility(View.GONE);
-    }
-
 }

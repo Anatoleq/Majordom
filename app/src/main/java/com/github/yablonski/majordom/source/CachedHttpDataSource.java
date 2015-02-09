@@ -21,6 +21,7 @@ public class CachedHttpDataSource extends HttpDataSource {
 
     public static final String KEY = "CachedHttpDataSource";
     public static final String TAG = "cache_http_data_source";
+    private static final int DEFAULT_BUFFER_SIZE = 1024 * 8;
 
     private Context mContext;
 
@@ -55,8 +56,6 @@ public class CachedHttpDataSource extends HttpDataSource {
         Log.d(TAG, "copy stream success get from file");
         return new FileInputStream(cacheFile);
     }
-
-    private static final int DEFAULT_BUFFER_SIZE = 1024 * 4;
 
     public static long copy(InputStream input, File file) throws IOException {
         FileOutputStream fileOutputStream = null;

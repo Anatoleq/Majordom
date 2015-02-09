@@ -3,6 +3,7 @@ package com.github.yablonski.majordom.bo;
 /**
  * Created by Acer on 25.11.2014.
  */
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
